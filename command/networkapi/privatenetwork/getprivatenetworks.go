@@ -36,7 +36,7 @@ func (command *GetPrivateNetworksCommand) Execute() ([]networkapiclient.PrivateN
 		if error != nil{
 			return nil, error
 		}
-		return nil, fmt.Errorf("API Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+		return nil, fmt.Errorf("GetPrivateNetworksCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 	}
 	
 }

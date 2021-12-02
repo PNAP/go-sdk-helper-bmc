@@ -26,7 +26,7 @@ func (command *DeleteServerCommand) Execute() (*bmcapiclient.DeleteResult, error
 		if error != nil{
 			return nil, err
 		}
-		return nil, fmt.Errorf("API Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+		return nil, fmt.Errorf("DeleteServerCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 	
 		//return nil, err
 	} else if httpResponse.StatusCode >= 200 && httpResponse.StatusCode < 300{

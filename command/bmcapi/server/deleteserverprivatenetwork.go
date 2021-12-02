@@ -36,7 +36,7 @@ func (command *DeleteServerPrivateNetworkCommand) Execute() (*string, error) {
 		if error != nil{
 			return nil, error
 		}
-		return nil, fmt.Errorf("API Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+		return nil, fmt.Errorf("DeleteServerPrivateNetworkCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 	}
 	
 }
