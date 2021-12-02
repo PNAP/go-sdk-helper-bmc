@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/PNAP/go-sdk-helper-bmc/command/bmcapi"
+	"github.com/PNAP/go-sdk-helper-bmc/command/bmcapi/server"
+	"github.com/PNAP/go-sdk-helper-bmc/command/networkapi/privatenetwork"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
@@ -35,7 +36,7 @@ func main(){
 	srv := bmcapiclient.ServerReserve{}
 	//boolVar := true
 	srv.PricingModel = "bla bla"
-	cmd3 := bmcapi.NewReserveServerCommand(sdk,"61a6a8d968496e7abc7e8497", srv)
+	cmd3 := server.NewDeleteServerCommand(sdk,"61a6a8d968496e7abc7e8497")
 
 	s, errr := cmd3.Execute()
 	
@@ -43,7 +44,18 @@ func main(){
 	if errr!= nil{
 		fmt.Println("Error is", errr)
 	}else{
-		fmt.Println("Server is is", s.Hostname)
+		fmt.Println("Server is is", s.Result)
+	}
+
+	cmd4 := privatenetwork.NewGetPrivateNetworkCommand(sdk, "5fe997d274432c34c12adf8a")
+
+	s4, errr4 := cmd4.Execute()
+	
+
+	if errr4!= nil{
+		fmt.Println("Error is", errr4)
+	}else{
+		fmt.Println("Server is is", s4.Id)
 	}
 
 
