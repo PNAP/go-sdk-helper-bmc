@@ -1,6 +1,6 @@
 module github.com/PNAP/go-sdk-helper-bmc
 
-replace github.com/PNAP/go-sdk-helper-bmc => D:/repos/go-sdk-helper-bmc
+//replace github.com/PNAP/go-sdk-helper-bmc => D:/repos/go-sdk-helper-bmc
 
 go 1.13
 

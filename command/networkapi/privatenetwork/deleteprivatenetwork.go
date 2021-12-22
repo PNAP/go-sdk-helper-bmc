@@ -25,7 +25,7 @@ func (command *DeletePrivateNetworkCommand) Execute() (error) {
 		if error != nil{
 			return err
 		}
-		return fmt.Errorf("API Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+		return fmt.Errorf("DeletePrivateNetworkCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 	
 		//return nil, err
 	} else if httpResponse.StatusCode >= 200 && httpResponse.StatusCode < 300{
