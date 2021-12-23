@@ -3,7 +3,7 @@ package dto
 import (
 )
 
-//Configuration represents struct that serves to initialize receiver
+//Configuration represents struct that serves to initialize receiver..
 type Configuration struct {
 	
 	ClientID                 string   `json:"clientId"`
