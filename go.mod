@@ -9,6 +9,6 @@ require (
 	github.com/phoenixnap/go-sdk-bmc/bmcapi v1.0.0
 	github.com/phoenixnap/go-sdk-bmc/networkapi v1.0.0
 	github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi v1.0.0
-	github.com/spf13/viper v1.10.1
+	github.com/spf13/viper v1.6.2
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 )
