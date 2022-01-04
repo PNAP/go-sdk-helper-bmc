@@ -22,7 +22,9 @@ func (command *GetQuotasCommand) Execute() ([]bmcapiclient.Quota, error) {
 
 	server, httpResponse, err := command.receiver.APIClient.QuotasApi.QuotasGet(context.Background()).Execute()
 
-	if err != nil {
+	if err != nil && httpResponse == nil {
+		return nil, err
+	} else if err != nil {
 		response := &dto.ErrorMessage{}
 		error := response.FromBytes(httpResponse)
 		if error != nil {

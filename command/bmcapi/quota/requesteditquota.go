@@ -24,7 +24,9 @@ func (command *RequestEditQuotaLimitCommand) Execute() error {
 
 	httpResponse, err := command.receiver.APIClient.QuotasApi.QuotasQuotaIdActionsRequestEditPost(context.Background(), command.quotaID).QuotaEditLimitRequest(command.quotaEditLimitRequest).Execute()
 
-	if err != nil {
+	if err != nil && httpResponse == nil {
+		return err
+	} else if err != nil {
 		response := &dto.ErrorMessage{}
 		error := response.FromBytes(httpResponse)
 		if error != nil {
