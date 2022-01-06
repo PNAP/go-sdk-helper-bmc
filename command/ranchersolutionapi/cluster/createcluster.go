@@ -21,28 +21,14 @@ type CreateClusterCommand struct {
 // Execute runs CreateClusterCommand
 func (command *CreateClusterCommand) Execute() (*rancherapiclient.Cluster, error) {
 
-	server, httpResponse, err := command.receiver.RancherAPIClient.ClustersApi.ClustersPost(context.Background()).Cluster(command.cluster).Execute()
+	cluster, httpResponse, err := command.receiver.RancherAPIClient.ClustersApi.ClustersPost(context.Background()).Cluster(command.cluster).Execute()
 
-	if err != nil {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return nil, err
-		}
-		return nil, fmt.Errorf("CreateClusterCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+	errResolver := dto.NewErrorResolver(httpResponse, err)
 
-		//return nil, err
-	} else if httpResponse.StatusCode >= 200 && httpResponse.StatusCode < 300 {
-		return &server, nil
-	} else {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return nil, error
-		}
-		return nil, fmt.Errorf("CreateClusterCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+	if errResolver.Error == nil {
+		return &cluster, nil
 	}
-
+	return nil, fmt.Errorf("CreateClusterCommand %s", errResolver.Error)
 }
 
 //NewCreateClusterCommand constructs new commmand of this type

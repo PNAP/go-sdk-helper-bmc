@@ -23,26 +23,12 @@ func (command *GetClusterCommand) Execute() (*rancherapiclient.Cluster, error) {
 
 	cluster, httpResponse, err := command.receiver.RancherAPIClient.ClustersApi.ClustersIdGet(context.Background(), command.clusterID).Execute()
 
-	if err != nil {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return nil, err
-		}
-		return nil, fmt.Errorf("GetClusterCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+	errResolver := dto.NewErrorResolver(httpResponse, err)
 
-		//return nil, err
-	} else if httpResponse.StatusCode >= 200 && httpResponse.StatusCode < 300 {
+	if errResolver.Error == nil {
 		return &cluster, nil
-	} else {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return nil, error
-		}
-		return nil, fmt.Errorf("GetClusterCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 	}
-
+	return nil, fmt.Errorf("GetClusterCommand %s", errResolver.Error)
 }
 
 //NewGetClusterCommand constructs new commmand of this type

@@ -23,26 +23,12 @@ func (command *DeleteClusterCommand) Execute() (*rancherapiclient.DeleteResult, 
 
 	result, httpResponse, err := command.receiver.RancherAPIClient.ClustersApi.ClustersIdDelete(context.Background(), command.clusterID).Execute()
 
-	if err != nil {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return nil, err
-		}
-		return nil, fmt.Errorf("DeleteClusterCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+	errResolver := dto.NewErrorResolver(httpResponse, err)
 
-		//return nil, err
-	} else if httpResponse.StatusCode >= 200 && httpResponse.StatusCode < 300 {
+	if errResolver.Error == nil {
 		return &result, nil
-	} else {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return nil, error
-		}
-		return nil, fmt.Errorf("DeleteClusterCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 	}
-
+	return nil, fmt.Errorf("DeleteClusterCommand %s", errResolver.Error)
 }
 
 //NewDeleteClusterCommand constructs new commmand of this type
