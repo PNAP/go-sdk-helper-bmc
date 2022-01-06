@@ -24,28 +24,12 @@ func (command *RequestEditQuotaLimitCommand) Execute() error {
 
 	httpResponse, err := command.receiver.APIClient.QuotasApi.QuotasQuotaIdActionsRequestEditPost(context.Background(), command.quotaID).QuotaEditLimitRequest(command.quotaEditLimitRequest).Execute()
 
-	if err != nil && httpResponse == nil {
-		return err
-	} else if err != nil {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return err
-		}
-		return fmt.Errorf("RequestEditQuotaLimitCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+	errResolver := dto.NewErrorResolver(httpResponse, err)
 
-		//return nil, err
-	} else if httpResponse.StatusCode >= 200 && httpResponse.StatusCode < 300 {
+	if errResolver.Error == nil {
 		return nil
-	} else {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return error
-		}
-		return fmt.Errorf("API Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 	}
-
+	return fmt.Errorf("RequestEditQuotaLimitCommand %s", errResolver.Error)
 }
 
 //NewRequestEditQuotaLimitCommand constructs new command of this type

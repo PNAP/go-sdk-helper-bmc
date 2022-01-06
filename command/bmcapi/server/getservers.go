@@ -2,10 +2,13 @@ package server
 
 import (
 	"fmt"
+
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
+
 	//"net/http"
 	"context"
-	 "github.com/PNAP/go-sdk-helper-bmc/receiver"
+
+	"github.com/PNAP/go-sdk-helper-bmc/receiver"
 	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
 )
 
@@ -19,26 +22,12 @@ func (command *GetServersCommand) Execute() ([]bmcapiclient.Server, error) {
 
 	servers, httpResponse, err := command.receiver.APIClient.ServersApi.ServersGet(context.Background()).Execute()
 
-	if err != nil {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil{
-			return nil, err
-		}
-		return nil, fmt.Errorf("GetServersCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
-	
-		//return nil, err
-	} else if httpResponse.StatusCode >= 200 && httpResponse.StatusCode < 300{
+	errResolver := dto.NewErrorResolver(httpResponse, err)
+
+	if errResolver.Error == nil {
 		return servers, nil
-	} else{
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil{
-			return nil, error
-		}
-		return nil, fmt.Errorf("API Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 	}
-	
+	return nil, fmt.Errorf("GetServersCommand %s", errResolver.Error)
 }
 
 //NewGetServersCommand constructs new commmand of this type

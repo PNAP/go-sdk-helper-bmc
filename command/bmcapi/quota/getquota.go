@@ -23,28 +23,12 @@ func (command *GetQuotaCommand) Execute() (*bmcapiclient.Quota, error) {
 
 	quota, httpResponse, err := command.receiver.APIClient.QuotasApi.QuotasQuotaIdGet(context.Background(), command.quotaID).Execute()
 
-	if err != nil && httpResponse == nil {
-		return nil, err
-	} else if err != nil {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return nil, err
-		}
-		return nil, fmt.Errorf("GetQuotaCommand Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
+	errResolver := dto.NewErrorResolver(httpResponse, err)
 
-		//return nil, err
-	} else if httpResponse.StatusCode >= 200 && httpResponse.StatusCode < 300 {
+	if errResolver.Error == nil {
 		return &quota, nil
-	} else {
-		response := &dto.ErrorMessage{}
-		error := response.FromBytes(httpResponse)
-		if error != nil {
-			return nil, error
-		}
-		return nil, fmt.Errorf("API Returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 	}
-
+	return nil, fmt.Errorf("GetQuotaCommand %s", errResolver.Error)
 }
 
 //NewGetQuotaCommand constructs new command of this type
