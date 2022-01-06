@@ -10,12 +10,12 @@ type ErrorResolver struct {
 	Error error
 }
 
-//NewErrorResolver constructs new instance of ErrorProcessing struct
+//NewErrorResolver constructs new instance of ErrorResolver struct
 func NewErrorResolver(httpResponse *http.Response, err error) *ErrorResolver {
 
 	if err != nil && httpResponse == nil {
 		//do nothing  use existing err
-	} else if err != nil {
+	} else if err != nil && httpResponse != nil {
 		response := &ErrorMessage{}
 		error := response.FromBytes(httpResponse)
 		if error != nil {
@@ -24,7 +24,6 @@ func NewErrorResolver(httpResponse *http.Response, err error) *ErrorResolver {
 			err = fmt.Errorf("returned Code %v Message: %s Validation Errors: %s", httpResponse.StatusCode, response.Message, response.ValidationErrors)
 		}
 	} else if httpResponse.StatusCode >= 200 && httpResponse.StatusCode < 300 {
-		//should not happen ever
 		err = nil
 	} else {
 		response := &ErrorMessage{}
