@@ -24,6 +24,7 @@ type BMCSDK struct {
 	NetworkAPIClient networkapiclient.APIClient
 	TagAPIClient     tagapiclient.APIClient
 	AuditAPIClient   auditapiclient.APIClient
+	PNAPClient       PNAPClient
 }
 
 //NewBMCSDKWithDefaultConfig creates a new BMCSDK receiver with credentials from config file on default path. Verification of configuration file will be done prior to creation
@@ -67,8 +68,10 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 	networkApiClient := networkapiclient.NewAPIClient(networkApiConfiguration)
 	tagApiClient := tagapiclient.NewAPIClient(tagApiConfiguration)
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
+	pnapClient, err := NewPNAPClientWithDefaultConfig()
+	pnapClient.SetAuthentication(auth)
 
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient}
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, pnapClient}
 	return sdkClient, err
 }
 
@@ -140,7 +143,9 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	tagApiClient := tagapiclient.NewAPIClient(tagApiConfiguration)
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
 
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient}
+	pnapClient := NewPNAPClient(auth)
+
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, pnapClient}
 	return sdkClient
 }
 
@@ -179,7 +184,9 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 	tagApiClient := tagapiclient.NewAPIClient(tagApiConfiguration)
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
 
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient}
+	pnapClient, err := NewPNAPClientWithCustomConfig(path)
+	pnapClient.SetAuthentication(auth)
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, pnapClient}
 	return sdkClient, err
 }
 
