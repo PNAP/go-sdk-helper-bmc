@@ -27,20 +27,8 @@ type Reservation struct {
 	AssignedResourceID  string    `json:"assignedResourceId,omitempty"`
 }
 
-//Reservations represents list of reservations
-type Reservations []Reservation
-
 //FromBytes performs conversion of http response to the representing struct
 func (dto *Reservation) FromBytes(resp *http.Response) error {
-	body, err := ioutil.ReadAll(resp.Body)
-	if err == nil {
-		err = json.Unmarshal(body, dto)
-	}
-	return err
-}
-
-//FromBytes performs conversion of http response to the representing struct
-func (dto *Reservations) FromBytes(resp *http.Response) error {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err == nil {
 		err = json.Unmarshal(body, dto)
