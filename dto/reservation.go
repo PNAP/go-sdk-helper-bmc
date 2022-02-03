@@ -1,27 +1,30 @@
 package dto
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
-	"io"
+
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 //Reservation
 type Reservation struct {
-	SKU string `json:"sku,omitempty"`
-}
-
-//ToBytes performs conversion of struct to the io.Reader
-func (dto Reservation) ToBytes() (io.Reader, error) {
-	requestByte, err := json.Marshal(dto)
-
-	if err != nil {
-		return nil, fmt.Errorf("Reservation dto can not be converted to io.Reader: %s", err)
-	}
-	return bytes.NewBuffer(requestByte), nil
+	ID                  string    `json:"id"`
+	ProductCode         string    `json:"productCode"`
+	ProductCategory     string    `json:"productCategory"`
+	Location            string    `json:"location"`
+	ReservationModel    string    `json:"reservationModel"`
+	InitialInvoiceModel string    `json:"initialInvoiceModel,omitempty"`
+	StartDateTime       time.Time `json:"startDateTime"`
+	EndDateTime         time.Time `json:"endDateTime,omitempty"`
+	LastRenewalDateTime time.Time `json:"lastRenewalDateTime,omitempty"`
+	NextRenewalDateTime time.Time `json:"nextRenewalDateTime,omitempty"`
+	AutoRenew           bool      `json:"autoRenew"`
+	SKU                 string    `json:"sku"`
+	Price               float32   `json:"price"`
+	PriceUnit           string    `json:"priceUnit"`
+	AssignedResourceID  string    `json:"assignedResourceId,omitempty"`
 }
 
 //FromBytes performs conversion of http response to the representing struct

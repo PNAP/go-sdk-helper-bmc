@@ -7,13 +7,14 @@ import (
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
 )
 
-// CreateReservationCommand represents command for server provisioning. Use NewCreateServerCommand to initilize command properly.
+// CreateReservationCommand represents command that creates new package reservation for the account.
+// Use NewCreateReservationCommand to initialize command properly.
 type CreateReservationCommand struct {
 	receiver    receiver.BMCSDK
-	reservation dto.Reservation
+	reservation dto.ReservationRequest
 }
 
-// Execute provisions new server
+// Execute creates new package reservation for the account.
 func (command *CreateReservationCommand) Execute() (*dto.Reservation, error) {
 	var req = command.receiver
 	var apiPrefix = "billing/v1/"
@@ -35,8 +36,8 @@ func (command *CreateReservationCommand) Execute() (*dto.Reservation, error) {
 
 }
 
-//NewCreateServerCommand constructs new commmand of this type
-func NewCreateReservationCommand(requester receiver.BMCSDK, server dto.Reservation) *CreateReservationCommand {
+//NewCreateReservationCommand constructs new commmand of this type
+func NewCreateReservationCommand(requester receiver.BMCSDK, reservation dto.ReservationRequest) *CreateReservationCommand {
 
-	return &CreateReservationCommand{requester, server}
+	return &CreateReservationCommand{requester, reservation}
 }
