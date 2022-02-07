@@ -14,7 +14,7 @@ type GetReservationsCommand struct {
 }
 
 // Execute retrieves all reservations for the account.
-func (command *GetReservationsCommand) Execute() (*dto.Reservations, error) {
+func (command *GetReservationsCommand) Execute() ([]dto.Reservation, error) {
 	var req = command.receiver
 	var apiPrefix = "billing/v1/"
 
@@ -25,7 +25,8 @@ func (command *GetReservationsCommand) Execute() (*dto.Reservations, error) {
 	if errResolver.Error == nil {
 		var reservationResponse = &dto.Reservations{}
 		reservationResponse.FromBytes(httpResponse)
-		return reservationResponse, nil
+		respList := *reservationResponse
+		return respList, nil
 	}
 	return nil, fmt.Errorf("GetReservationsCommand %s", errResolver.Error)
 
