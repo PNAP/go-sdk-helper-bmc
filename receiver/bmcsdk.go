@@ -8,6 +8,8 @@ import (
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"golang.org/x/oauth2/clientcredentials"
 
+	"net/http"
+
 	"github.com/mitchellh/go-homedir"
 	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi"
 	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
@@ -144,6 +146,88 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
 
 	pnapClient := NewPNAPClient(auth)
+
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, pnapClient}
+	return sdkClient
+}
+
+// NewBMCSDKWithTokenAuthentication creates a new BMCSDK receiver with Bearer token directly set to the header
+func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
+
+	//tokenUrl := config.TokenURL
+	/* if auth.TokenURL != "" {
+		tokenUrl = auth.TokenURL
+	} */
+	/* config := clientcredentials.Config{
+		ClientID:     auth.ClientID,
+		ClientSecret: auth.ClientSecret,
+		TokenURL:     tokenUrl,
+		Scopes:       []string{"bmc", "bmc.read"},
+	} */
+
+	bmcApiConfiguration := bmcapiclient.NewConfiguration()
+	rancherApiConfiguration := rancherapiclient.NewConfiguration()
+	networkApiConfiguration := networkapiclient.NewConfiguration()
+	tagApiConfiguration := tagapiclient.NewConfiguration()
+	auditApiConfiguration := auditapiclient.NewConfiguration()
+
+	if auth.ApiHostName != "" {
+		bmcApiConfiguration.Servers = bmcapiclient.ServerConfigurations{
+			{
+				URL: auth.ApiHostName + "bmc/v0",
+			},
+		}
+		rancherApiConfiguration.Servers = rancherapiclient.ServerConfigurations{
+			{
+				URL: auth.ApiHostName + "solutions/rancher/v0",
+			},
+		}
+		networkApiConfiguration.Servers = networkapiclient.ServerConfigurations{
+			{
+				URL: auth.ApiHostName + "networks/v1",
+			},
+		}
+		tagApiConfiguration.Servers = tagapiclient.ServerConfigurations{
+			{
+				URL: auth.ApiHostName + "tag-manager/v1",
+			},
+		}
+		auditApiConfiguration.Servers = auditapiclient.ServerConfigurations{
+			{
+				URL: auth.ApiHostName + "audit/v1",
+			},
+		}
+	}
+
+	bmcApiConfiguration.HTTPClient = &http.Client{}
+	rancherApiConfiguration.HTTPClient = &http.Client{}
+	networkApiConfiguration.HTTPClient = &http.Client{}
+	tagApiConfiguration.HTTPClient = &http.Client{}
+	auditApiConfiguration.HTTPClient = &http.Client{}
+
+	if auth.UserAgent != "" {
+		bmcApiConfiguration.UserAgent = auth.UserAgent
+		rancherApiConfiguration.UserAgent = auth.UserAgent
+		networkApiConfiguration.UserAgent = auth.UserAgent
+		tagApiConfiguration.UserAgent = auth.UserAgent
+		auditApiConfiguration.UserAgent = auth.UserAgent
+	}
+
+	if auth.BearerToken != "" {
+		bmcApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
+		rancherApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
+		networkApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
+		tagApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
+		auditApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
+	}
+
+	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
+	rancherApiClient := rancherapiclient.NewAPIClient(rancherApiConfiguration)
+	networkApiClient := networkapiclient.NewAPIClient(networkApiConfiguration)
+	tagApiClient := tagapiclient.NewAPIClient(tagApiConfiguration)
+	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
+
+	pnapClient := NewPNAPClientWithTokenAuthentication(auth)
 
 	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, pnapClient}
 	return sdkClient

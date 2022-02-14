@@ -56,6 +56,12 @@ func NewPNAPClient(auth dto.Configuration) PNAPClient {
 	return pnapClient
 }
 
+// NewPNAPClientWithTokenAuthentication creates a new PNAPClient that will be authenticated by directly adding Bearer token to the Authorizaton header.
+func NewPNAPClientWithTokenAuthentication(auth dto.Configuration) PNAPClient {
+	pnapClient := PNAPClient{&http.Client{}, auth}
+	return pnapClient
+}
+
 //NewPNAPClientWithCustomConfig creates a new PNAPClient. Verification of configuration will be done prior to creation
 //and error will be returned in case credentials or whole configuration file is missing
 func NewPNAPClientWithCustomConfig(path string) (PNAPClient, error) {
@@ -127,9 +133,20 @@ func (pnapClient *PNAPClient) SetAuthentication(auth dto.Configuration) {
 // Get performs a Get request and check for auth errors
 func (pnapClient PNAPClient) Get(resource string) (*http.Response, error) {
 
-	response, err := pnapClient.client.Get(buildURI(resource, pnapClient.auth))
+	//response, err := pnapClient.client.Get(buildURI(resource, pnapClient.auth))
 
-	return response, err
+	req, err := http.NewRequest("GET", buildURI(resource, pnapClient.auth), nil)
+	if err != nil {
+		return nil, err
+	}
+	// set the request header Content-Type for json
+	//req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	if pnapClient.auth.BearerToken != "" {
+		req.Header.Set("Authorization", "Bearer "+pnapClient.auth.BearerToken)
+	}
+	return pnapClient.client.Do(req)
+
+	//return response, err
 }
 
 // Delete performs a Delete request and check for auth errors
@@ -138,6 +155,9 @@ func (pnapClient PNAPClient) Delete(resource string) (*http.Response, error) {
 	// replicating Get/Post error handling
 	if err != nil {
 		return nil, err
+	}
+	if pnapClient.auth.BearerToken != "" {
+		req.Header.Set("Authorization", "Bearer "+pnapClient.auth.BearerToken)
 	}
 	return pnapClient.client.Do(req)
 }
@@ -150,7 +170,9 @@ func (pnapClient PNAPClient) Post(resource string, body io.Reader) (*http.Respon
 		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
-
+	if pnapClient.auth.BearerToken != "" {
+		req.Header.Set("Authorization", "Bearer "+pnapClient.auth.BearerToken)
+	}
 	requestDump, errd := httputil.DumpRequest(req, true)
 	if errd != nil {
 		fmt.Println(errd)
@@ -170,6 +192,9 @@ func (pnapClient PNAPClient) Put(resource string, body io.Reader) (*http.Respons
 	}
 	// set the request header Content-Type for json
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	if pnapClient.auth.BearerToken != "" {
+		req.Header.Set("Authorization", "Bearer "+pnapClient.auth.BearerToken)
+	}
 	return pnapClient.client.Do(req)
 }
 
