@@ -13,6 +13,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi"
 	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
+	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
 	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
 	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi"
 	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi"
@@ -26,6 +27,7 @@ type BMCSDK struct {
 	NetworkAPIClient networkapiclient.APIClient
 	TagAPIClient     tagapiclient.APIClient
 	AuditAPIClient   auditapiclient.APIClient
+	IpBlockAPIClient ipapiclient.APIClient
 	PNAPClient       PNAPClient
 }
 
@@ -50,12 +52,14 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 	networkApiConfiguration := networkapiclient.NewConfiguration()
 	tagApiConfiguration := tagapiclient.NewConfiguration()
 	auditApiConfiguration := auditapiclient.NewConfiguration()
+	ipApiConfiguration := ipapiclient.NewConfiguration()
 
 	bmcApiConfiguration.HTTPClient = config.Client(context.Background())
 	rancherApiConfiguration.HTTPClient = config.Client(context.Background())
 	networkApiConfiguration.HTTPClient = config.Client(context.Background())
 	tagApiConfiguration.HTTPClient = config.Client(context.Background())
 	auditApiConfiguration.HTTPClient = config.Client(context.Background())
+	ipApiConfiguration.HTTPClient = config.Client(context.Background())
 
 	if auth.UserAgent != "" {
 		bmcApiConfiguration.UserAgent = auth.UserAgent
@@ -63,6 +67,7 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 		networkApiConfiguration.UserAgent = auth.UserAgent
 		tagApiConfiguration.UserAgent = auth.UserAgent
 		auditApiConfiguration.UserAgent = auth.UserAgent
+		ipApiConfiguration.UserAgent = auth.UserAgent
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -70,10 +75,11 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 	networkApiClient := networkapiclient.NewAPIClient(networkApiConfiguration)
 	tagApiClient := tagapiclient.NewAPIClient(tagApiConfiguration)
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
+	ipApiClient := ipapiclient.NewAPIClient(ipApiConfiguration)
 	pnapClient, err := NewPNAPClientWithDefaultConfig()
 	pnapClient.SetAuthentication(auth)
 
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, pnapClient}
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, pnapClient}
 	return sdkClient, err
 }
 
@@ -96,6 +102,7 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	networkApiConfiguration := networkapiclient.NewConfiguration()
 	tagApiConfiguration := tagapiclient.NewConfiguration()
 	auditApiConfiguration := auditapiclient.NewConfiguration()
+	ipApiConfiguration := ipapiclient.NewConfiguration()
 
 	if auth.ApiHostName != "" {
 		bmcApiConfiguration.Servers = bmcapiclient.ServerConfigurations{
@@ -123,6 +130,11 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 				URL: auth.ApiHostName + "audit/v1",
 			},
 		}
+		ipApiConfiguration.Servers = ipapiclient.ServerConfigurations{
+			{
+				URL: auth.ApiHostName + "ips/v1",
+			},
+		}
 	}
 
 	bmcApiConfiguration.HTTPClient = config.Client(context.Background())
@@ -130,6 +142,7 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	networkApiConfiguration.HTTPClient = config.Client(context.Background())
 	tagApiConfiguration.HTTPClient = config.Client(context.Background())
 	auditApiConfiguration.HTTPClient = config.Client(context.Background())
+	ipApiConfiguration.HTTPClient = config.Client(context.Background())
 
 	if auth.UserAgent != "" {
 		bmcApiConfiguration.UserAgent = auth.UserAgent
@@ -137,6 +150,7 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 		networkApiConfiguration.UserAgent = auth.UserAgent
 		tagApiConfiguration.UserAgent = auth.UserAgent
 		auditApiConfiguration.UserAgent = auth.UserAgent
+		ipApiConfiguration.UserAgent = auth.UserAgent
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -144,10 +158,11 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	networkApiClient := networkapiclient.NewAPIClient(networkApiConfiguration)
 	tagApiClient := tagapiclient.NewAPIClient(tagApiConfiguration)
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
+	ipApiClient := ipapiclient.NewAPIClient(ipApiConfiguration)
 
 	pnapClient := NewPNAPClient(auth)
 
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, pnapClient}
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, pnapClient}
 	return sdkClient
 }
 
@@ -170,6 +185,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	networkApiConfiguration := networkapiclient.NewConfiguration()
 	tagApiConfiguration := tagapiclient.NewConfiguration()
 	auditApiConfiguration := auditapiclient.NewConfiguration()
+	ipApiConfiguration := ipapiclient.NewConfiguration()
 
 	if auth.ApiHostName != "" {
 		bmcApiConfiguration.Servers = bmcapiclient.ServerConfigurations{
@@ -197,6 +213,11 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 				URL: auth.ApiHostName + "audit/v1",
 			},
 		}
+		ipApiConfiguration.Servers = ipapiclient.ServerConfigurations{
+			{
+				URL: auth.ApiHostName + "ips/v1",
+			},
+		}
 	}
 
 	bmcApiConfiguration.HTTPClient = &http.Client{}
@@ -204,6 +225,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	networkApiConfiguration.HTTPClient = &http.Client{}
 	tagApiConfiguration.HTTPClient = &http.Client{}
 	auditApiConfiguration.HTTPClient = &http.Client{}
+	ipApiConfiguration.HTTPClient = &http.Client{}
 
 	if auth.UserAgent != "" {
 		bmcApiConfiguration.UserAgent = auth.UserAgent
@@ -211,6 +233,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 		networkApiConfiguration.UserAgent = auth.UserAgent
 		tagApiConfiguration.UserAgent = auth.UserAgent
 		auditApiConfiguration.UserAgent = auth.UserAgent
+		ipApiConfiguration.UserAgent = auth.UserAgent
 	}
 
 	if auth.BearerToken != "" {
@@ -219,6 +242,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 		networkApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
 		tagApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
 		auditApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
+		ipApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -226,10 +250,11 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	networkApiClient := networkapiclient.NewAPIClient(networkApiConfiguration)
 	tagApiClient := tagapiclient.NewAPIClient(tagApiConfiguration)
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
+	ipApiClient := ipapiclient.NewAPIClient(ipApiConfiguration)
 
 	pnapClient := NewPNAPClientWithTokenAuthentication(auth)
 
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, pnapClient}
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, pnapClient}
 	return sdkClient
 }
 
@@ -246,6 +271,7 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 	networkApiConfiguration := networkapiclient.NewConfiguration()
 	tagApiConfiguration := tagapiclient.NewConfiguration()
 	auditApiConfiguration := auditapiclient.NewConfiguration()
+	ipApiConfiguration := ipapiclient.NewConfiguration()
 
 	bmcApiConfiguration.HTTPClient = config.Client(context.Background())
 
@@ -253,6 +279,7 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 	networkApiConfiguration.HTTPClient = config.Client(context.Background())
 	tagApiConfiguration.HTTPClient = config.Client(context.Background())
 	auditApiConfiguration.HTTPClient = config.Client(context.Background())
+	ipApiConfiguration.HTTPClient = config.Client(context.Background())
 
 	if auth.UserAgent != "" {
 		bmcApiConfiguration.UserAgent = auth.UserAgent
@@ -260,6 +287,7 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 		networkApiConfiguration.UserAgent = auth.UserAgent
 		tagApiConfiguration.UserAgent = auth.UserAgent
 		auditApiConfiguration.UserAgent = auth.UserAgent
+		ipApiConfiguration.UserAgent = auth.UserAgent
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -267,10 +295,11 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 	networkApiClient := networkapiclient.NewAPIClient(networkApiConfiguration)
 	tagApiClient := tagapiclient.NewAPIClient(tagApiConfiguration)
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
+	ipApiClient := ipapiclient.NewAPIClient(ipApiConfiguration)
 
 	pnapClient, err := NewPNAPClientWithCustomConfig(path)
 	pnapClient.SetAuthentication(auth)
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, pnapClient}
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, pnapClient}
 	return sdkClient, err
 }
 
