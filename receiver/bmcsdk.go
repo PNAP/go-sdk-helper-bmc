@@ -70,6 +70,15 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 		ipApiConfiguration.UserAgent = auth.UserAgent
 	}
 
+	if auth.PoweredBy != "" {
+		bmcApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		rancherApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		networkApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		tagApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		auditApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		ipApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+	}
+
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
 	rancherApiClient := rancherapiclient.NewAPIClient(rancherApiConfiguration)
 	networkApiClient := networkapiclient.NewAPIClient(networkApiConfiguration)
@@ -151,6 +160,15 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 		tagApiConfiguration.UserAgent = auth.UserAgent
 		auditApiConfiguration.UserAgent = auth.UserAgent
 		ipApiConfiguration.UserAgent = auth.UserAgent
+	}
+
+	if auth.PoweredBy != "" {
+		bmcApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		rancherApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		networkApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		tagApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		auditApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		ipApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -245,6 +263,15 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 		ipApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
 	}
 
+	if auth.PoweredBy != "" {
+		bmcApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		rancherApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		networkApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		tagApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		auditApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		ipApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+	}
+
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
 	rancherApiClient := rancherapiclient.NewAPIClient(rancherApiConfiguration)
 	networkApiClient := networkapiclient.NewAPIClient(networkApiConfiguration)
@@ -288,6 +315,14 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 		tagApiConfiguration.UserAgent = auth.UserAgent
 		auditApiConfiguration.UserAgent = auth.UserAgent
 		ipApiConfiguration.UserAgent = auth.UserAgent
+	}
+	if auth.PoweredBy != "" {
+		bmcApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		rancherApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		networkApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		tagApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		auditApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		ipApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)

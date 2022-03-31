@@ -144,6 +144,9 @@ func (pnapClient PNAPClient) Get(resource string) (*http.Response, error) {
 	if pnapClient.auth.BearerToken != "" {
 		req.Header.Set("Authorization", "Bearer "+pnapClient.auth.BearerToken)
 	}
+	if pnapClient.auth.PoweredBy != "" {
+		req.Header.Set("X-Powered-By", pnapClient.auth.PoweredBy)
+	}
 	return pnapClient.client.Do(req)
 
 	//return response, err
@@ -156,8 +159,12 @@ func (pnapClient PNAPClient) Delete(resource string) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	if pnapClient.auth.BearerToken != "" {
 		req.Header.Set("Authorization", "Bearer "+pnapClient.auth.BearerToken)
+	}
+	if pnapClient.auth.PoweredBy != "" {
+		req.Header.Set("X-Powered-By", pnapClient.auth.PoweredBy)
 	}
 	return pnapClient.client.Do(req)
 }
@@ -172,6 +179,9 @@ func (pnapClient PNAPClient) Post(resource string, body io.Reader) (*http.Respon
 	req.Header.Set("Content-Type", "application/json")
 	if pnapClient.auth.BearerToken != "" {
 		req.Header.Set("Authorization", "Bearer "+pnapClient.auth.BearerToken)
+	}
+	if pnapClient.auth.PoweredBy != "" {
+		req.Header.Set("X-Powered-By", pnapClient.auth.PoweredBy)
 	}
 	requestDump, errd := httputil.DumpRequest(req, true)
 	if errd != nil {
@@ -195,6 +205,9 @@ func (pnapClient PNAPClient) Put(resource string, body io.Reader) (*http.Respons
 	if pnapClient.auth.BearerToken != "" {
 		req.Header.Set("Authorization", "Bearer "+pnapClient.auth.BearerToken)
 	}
+	if pnapClient.auth.PoweredBy != "" {
+		req.Header.Set("X-Powered-By", pnapClient.auth.PoweredBy)
+	}
 	return pnapClient.client.Do(req)
 }
 
@@ -202,9 +215,10 @@ func (pnapClient PNAPClient) Put(resource string, body io.Reader) (*http.Respons
 	return config.Hostname + resource
 } */
 func buildURI(resource string, auth dto.Configuration) string {
-	if auth.ApiHostName != "" && auth.PoweredBy != "" {
+	/* if auth.ApiHostName != "" && auth.PoweredBy != "" {
 		return auth.ApiHostName + resource + "?_xPoweredBy=" + auth.PoweredBy
-	} else if auth.ApiHostName != "" {
+	} else */
+	if auth.ApiHostName != "" {
 		return auth.ApiHostName + resource
 	}
 	return config.Hostname + resource
