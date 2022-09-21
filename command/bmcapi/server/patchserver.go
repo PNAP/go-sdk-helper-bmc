@@ -25,7 +25,7 @@ func (command *PatchServerCommand) Execute() (*bmcapiclient.Server, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &server, nil
+		return server, nil
 	}
 	return nil, fmt.Errorf("PatchServerCommand %s", errResolver.Error)
 }

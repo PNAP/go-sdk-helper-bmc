@@ -26,7 +26,7 @@ func (command *CreateSshKeyCommand) Execute() (*bmcapiclient.SshKey, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &sshKey, nil
+		return sshKey, nil
 	}
 	return nil, fmt.Errorf("CreateSshKeyCommand %s", errResolver.Error)
 }

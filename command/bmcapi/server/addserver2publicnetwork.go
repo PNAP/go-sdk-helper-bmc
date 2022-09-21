@@ -25,7 +25,7 @@ func (command *AddServer2PublicNetworkCommand) Execute() (*bmcapiclient.ServerPu
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &server, nil
+		return server, nil
 	}
 	return nil, fmt.Errorf("AddServer2PublicNetworkCommand %s", errResolver.Error)
 }

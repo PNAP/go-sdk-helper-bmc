@@ -26,7 +26,7 @@ func (command *PutTagsIpBlockCommand) Execute() (*ipapiclient.IpBlock, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &ipBlock, nil
+		return ipBlock, nil
 	}
 	return nil, fmt.Errorf("PutTagsIpBlockCommand %s", errResolver.Error)
 }

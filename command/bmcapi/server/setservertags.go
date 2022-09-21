@@ -25,7 +25,7 @@ func (command *SetServerTagsCommand) Execute() (*bmcapiclient.Server, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &server, nil
+		return server, nil
 	}
 	return nil, fmt.Errorf("SetServerTagsCommand %s", errResolver.Error)
 }

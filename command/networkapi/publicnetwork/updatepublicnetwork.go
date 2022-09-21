@@ -24,7 +24,7 @@ func (command *UpdatePublicNetworkCommand) Execute() (*networkapiclient.PublicNe
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &network, nil
+		return network, nil
 	}
 	return nil, fmt.Errorf("UpdatePublicNetworkCommand %s", errResolver.Error)
 }

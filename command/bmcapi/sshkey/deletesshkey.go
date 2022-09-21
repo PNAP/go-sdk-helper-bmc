@@ -26,7 +26,7 @@ func (command *DeleteSshKeyCommand) Execute() (*bmcapiclient.DeleteSshKeyResult,
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &result, nil
+		return result, nil
 	}
 	return nil, fmt.Errorf("DeleteSshKeyCommand %s", errResolver.Error)
 }

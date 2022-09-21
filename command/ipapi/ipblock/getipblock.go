@@ -24,7 +24,7 @@ func (command *GetIpBlockCommand) Execute() (*ipapiclient.IpBlock, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &tag, nil
+		return tag, nil
 	}
 	return nil, fmt.Errorf("GetIpBlockCommand %s", errResolver.Error)
 }

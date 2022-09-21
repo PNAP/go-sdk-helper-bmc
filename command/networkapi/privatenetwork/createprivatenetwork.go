@@ -23,7 +23,7 @@ func (command *CreatePrivateNetworkCommand) Execute() (*networkapiclient.Private
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &server, nil
+		return server, nil
 	}
 	return nil, fmt.Errorf("CreatePrivateNetworkCommand %s", errResolver.Error)
 }

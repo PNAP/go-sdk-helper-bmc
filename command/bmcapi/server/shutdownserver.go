@@ -26,7 +26,7 @@ func (command *ShutDownServerCommand) Execute() (*bmcapiclient.ActionResult, err
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &result, nil
+		return result, nil
 	}
 	return nil, fmt.Errorf("ShutDownServerCommand %s", errResolver.Error)
 }

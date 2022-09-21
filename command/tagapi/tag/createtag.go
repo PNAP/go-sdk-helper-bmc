@@ -24,7 +24,7 @@ func (command *CreateTagCommand) Execute() (*tagapiclient.Tag, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &tag, nil
+		return tag, nil
 	}
 	return nil, fmt.Errorf("CreateTagCommand %s", errResolver.Error)
 }

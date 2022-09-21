@@ -24,7 +24,7 @@ func (command *DeleteIpBlockCommand) Execute() (*ipapiclient.DeleteIpBlockResult
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &result, nil
+		return result, nil
 	}
 	return nil, fmt.Errorf("DeleteIpBlockCommand %s", errResolver.Error)
 }
