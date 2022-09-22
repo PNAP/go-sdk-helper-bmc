@@ -24,7 +24,7 @@ func (command *DeleteTagCommand) Execute() (*tagapiclient.DeleteResult, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &result, nil
+		return result, nil
 	}
 	return nil, fmt.Errorf("DeleteTagCommand %s", errResolver.Error)
 }

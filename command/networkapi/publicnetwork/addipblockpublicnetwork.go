@@ -25,7 +25,7 @@ func (command *AddIpBlock2PublicNetworkCommand) Execute() (*networkapiclient.Pub
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &ipBlock, nil
+		return ipBlock, nil
 	}
 	return nil, fmt.Errorf("AddIpBlock2PublicNetworkCommand %s", errResolver.Error)
 }

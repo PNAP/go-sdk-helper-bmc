@@ -26,7 +26,7 @@ func (command *CreateClusterCommand) Execute() (*rancherapiclient.Cluster, error
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &cluster, nil
+		return cluster, nil
 	}
 	return nil, fmt.Errorf("CreateClusterCommand %s", errResolver.Error)
 }

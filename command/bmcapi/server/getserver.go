@@ -26,7 +26,7 @@ func (command *GetServerCommand) Execute() (*bmcapiclient.Server, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &server, nil
+		return server, nil
 	}
 	return nil, fmt.Errorf("GetServerCommand %s", errResolver.Error)
 }

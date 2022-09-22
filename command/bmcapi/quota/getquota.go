@@ -26,7 +26,7 @@ func (command *GetQuotaCommand) Execute() (*bmcapiclient.Quota, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &quota, nil
+		return quota, nil
 	}
 	return nil, fmt.Errorf("GetQuotaCommand %s", errResolver.Error)
 }

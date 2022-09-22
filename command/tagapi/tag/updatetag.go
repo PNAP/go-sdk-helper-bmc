@@ -25,7 +25,7 @@ func (command *UpdateTagCommand) Execute() (*tagapiclient.Tag, error) {
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &tag, nil
+		return tag, nil
 	}
 	return nil, fmt.Errorf("UpdateTagCommand %s", errResolver.Error)
 }

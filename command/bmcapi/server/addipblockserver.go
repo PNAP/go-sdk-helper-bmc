@@ -25,7 +25,7 @@ func (command *AddIpBlockCommand) Execute() (*bmcapiclient.ServerIpBlock, error)
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &ipBlock, nil
+		return ipBlock, nil
 	}
 	return nil, fmt.Errorf("AddIpBlockCommand %s", errResolver.Error)
 }

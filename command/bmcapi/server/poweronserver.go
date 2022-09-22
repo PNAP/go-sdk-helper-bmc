@@ -26,7 +26,7 @@ func (command *PowerOnServerCommand) Execute() (*bmcapiclient.ActionResult, erro
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &result, nil
+		return result, nil
 	}
 	return nil, fmt.Errorf("PowerOnServerCommand %s", errResolver.Error)
 }

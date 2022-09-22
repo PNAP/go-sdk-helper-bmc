@@ -24,7 +24,7 @@ func (command *UpdatePrivateNetworkCommand) Execute() (*networkapiclient.Private
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &server, nil
+		return server, nil
 	}
 	return nil, fmt.Errorf("UpdatePrivateNetworkCommand %s", errResolver.Error)
 }

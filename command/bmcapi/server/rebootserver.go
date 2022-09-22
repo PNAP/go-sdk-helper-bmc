@@ -26,7 +26,7 @@ func (command *RebootServerCommand) Execute() (*bmcapiclient.ActionResult, error
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		return &result, nil
+		return result, nil
 	}
 	return nil, fmt.Errorf("RebootServerCommand %s", errResolver.Error)
 }
