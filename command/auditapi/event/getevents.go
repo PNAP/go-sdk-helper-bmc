@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi"
+	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi/v2"
 )
 
 // GetEventsCommand represents command that retrieves event logs

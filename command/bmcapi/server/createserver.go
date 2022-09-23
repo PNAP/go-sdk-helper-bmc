@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
 )
 
 // CreateServerCommand represents command that provisions new server

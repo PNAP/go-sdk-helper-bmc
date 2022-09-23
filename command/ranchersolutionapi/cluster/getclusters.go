@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi"
+	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v2"
 )
 
 // GetClustersCommand represents command that lists all clusters for the account

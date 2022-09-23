@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
 )
 
 // GetSshKeyCommand represents command that retrieves details about specific ssh key for the account

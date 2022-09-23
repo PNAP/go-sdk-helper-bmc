@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
+	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v2"
 )
 
 // CreateIpBlockCommand represents command that adds a new IP Block to the account

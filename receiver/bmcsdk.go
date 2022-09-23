@@ -11,13 +11,13 @@ import (
 	"net/http"
 
 	"github.com/mitchellh/go-homedir"
-	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
-	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
+	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v2"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
 	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi"
-	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi"
-	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi"
+	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v2"
+	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v2"
 	"github.com/spf13/viper"
 )
 
@@ -124,12 +124,12 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	if auth.ApiHostName != "" {
 		bmcApiConfiguration.Servers = bmcapiclient.ServerConfigurations{
 			{
-				URL: auth.ApiHostName + "bmc/v0",
+				URL: auth.ApiHostName + "bmc/v1",
 			},
 		}
 		rancherApiConfiguration.Servers = rancherapiclient.ServerConfigurations{
 			{
-				URL: auth.ApiHostName + "solutions/rancher/v0",
+				URL: auth.ApiHostName + "solutions/rancher/v1beta",
 			},
 		}
 		networkApiConfiguration.Servers = networkapiclient.ServerConfigurations{
@@ -226,12 +226,12 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	if auth.ApiHostName != "" {
 		bmcApiConfiguration.Servers = bmcapiclient.ServerConfigurations{
 			{
-				URL: auth.ApiHostName + "bmc/v0",
+				URL: auth.ApiHostName + "bmc/v1",
 			},
 		}
 		rancherApiConfiguration.Servers = rancherapiclient.ServerConfigurations{
 			{
-				URL: auth.ApiHostName + "solutions/rancher/v0",
+				URL: auth.ApiHostName + "solutions/rancher/v1beta",
 			},
 		}
 		networkApiConfiguration.Servers = networkapiclient.ServerConfigurations{

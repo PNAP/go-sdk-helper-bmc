@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
 )
 
 // GetPublicNetworksCommand represents command that lists all public networks on the account
