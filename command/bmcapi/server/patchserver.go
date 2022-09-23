@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
 )
 
 // PatchServerCommand represents command that updates specific server

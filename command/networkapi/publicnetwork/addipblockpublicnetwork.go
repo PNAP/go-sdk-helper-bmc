@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
 )
 
 // AddIpBlock2PublicNetworkCommand represents command that adds an IP Block to specific public network

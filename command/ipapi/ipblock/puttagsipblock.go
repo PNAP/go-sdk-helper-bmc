@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi"
+	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v2"
 )
 
 // PutTagsIpBlockCommand represents command that overwrites tags assigned for specific IP Block belonging to the account

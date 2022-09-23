@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi"
+	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v2"
 )
 
 // CreateTagCommand represents command that adds a new tag to the account

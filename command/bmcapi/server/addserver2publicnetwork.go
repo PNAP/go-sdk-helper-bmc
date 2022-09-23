@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
 )
 
 // AddServer2PublicNetworkCommand represents command that configures public network on specific server

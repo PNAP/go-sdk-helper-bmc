@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi"
+	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v2"
 )
 
 // UpdateTagCommand represents command that updates a specific tag for the account
