@@ -7,8 +7,8 @@ go 1.13
 require (
 	//github.com/golang-jwt/jwt/v4 v4.0.0
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/phoenixnap/go-sdk-bmc/auditapi/v2 v2.0.0
-	github.com/phoenixnap/go-sdk-bmc/bmcapi/v2 v2.0.0
+	github.com/phoenixnap/go-sdk-bmc/auditapi/v2 v2.0.1
+	github.com/phoenixnap/go-sdk-bmc/bmcapi/v2 v2.0.1
 	github.com/phoenixnap/go-sdk-bmc/ipapi/v2 v2.0.0
 	github.com/phoenixnap/go-sdk-bmc/networkapi/v2 v2.0.0
 	github.com/phoenixnap/go-sdk-bmc/networkstorageapi v1.0.2

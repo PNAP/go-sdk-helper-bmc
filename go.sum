@@ -158,10 +158,10 @@ github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRW
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
 github.com/pelletier/go-toml v1.2.0 h1:T5zMGML61Wp+FlcbWjRDT7yAxhJNAiPPLOFECq181zc=
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
-github.com/phoenixnap/go-sdk-bmc/auditapi/v2 v2.0.0 h1:u4utn6m0iekgya3vAETCDvc4z90uPIVCQMsAVVy3RzI=
-github.com/phoenixnap/go-sdk-bmc/auditapi/v2 v2.0.0/go.mod h1:9oH0AwfDV2y8g+ED4LB+4llQAuelJvWpR2uvxhSXmGs=
-github.com/phoenixnap/go-sdk-bmc/bmcapi/v2 v2.0.0 h1:4NpwL2d0f/AytU+xMe6Ey7wincqkNo2jymd2i6Y1mXk=
-github.com/phoenixnap/go-sdk-bmc/bmcapi/v2 v2.0.0/go.mod h1:EB1RQ+yhFslZ+rNMnAbi7DyOqca1UJkvAgxnytLRiNY=
+github.com/phoenixnap/go-sdk-bmc/auditapi/v2 v2.0.1 h1:iY4qpSSfLQCULtnN7OlSHFZ78e46osvYLOnDdk088q4=
+github.com/phoenixnap/go-sdk-bmc/auditapi/v2 v2.0.1/go.mod h1:9oH0AwfDV2y8g+ED4LB+4llQAuelJvWpR2uvxhSXmGs=
+github.com/phoenixnap/go-sdk-bmc/bmcapi/v2 v2.0.1 h1:8kmQu+rdnDa7DngNABj4oWitti/xsRp3Ql3s8BGGgqA=
+github.com/phoenixnap/go-sdk-bmc/bmcapi/v2 v2.0.1/go.mod h1:EB1RQ+yhFslZ+rNMnAbi7DyOqca1UJkvAgxnytLRiNY=
 github.com/phoenixnap/go-sdk-bmc/ipapi/v2 v2.0.0 h1:e9diy+jWyzeQXPWjq66LUwo1DJI7snM7NIQT8vOR8Hc=
 github.com/phoenixnap/go-sdk-bmc/ipapi/v2 v2.0.0/go.mod h1:6ZPDjGdWiJQ3v4Qo7djX3lVPqNEjZprzcKmaeTi98nQ=
 github.com/phoenixnap/go-sdk-bmc/networkapi/v2 v2.0.0 h1:4LDSZmf6OP5OhqcYJ59yLrSyy9HBQL839r11g3QjGA0=
