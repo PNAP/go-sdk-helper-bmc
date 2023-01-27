@@ -76,13 +76,13 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 	}
 
 	if auth.PoweredBy != "" {
-		bmcApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		rancherApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		networkApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		tagApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		auditApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		ipApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		networkStorageApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		bmcApiConfiguration.XPoweredBy = auth.PoweredBy
+		rancherApiConfiguration.XPoweredBy = auth.PoweredBy
+		networkApiConfiguration.XPoweredBy = auth.PoweredBy
+		tagApiConfiguration.XPoweredBy = auth.PoweredBy
+		auditApiConfiguration.XPoweredBy = auth.PoweredBy
+		ipApiConfiguration.XPoweredBy = auth.PoweredBy
+		networkStorageApiConfiguration.XPoweredBy = auth.PoweredBy
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -178,13 +178,13 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	}
 
 	if auth.PoweredBy != "" {
-		bmcApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		rancherApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		networkApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		tagApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		auditApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		ipApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		networkStorageApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		bmcApiConfiguration.XPoweredBy = auth.PoweredBy
+		rancherApiConfiguration.XPoweredBy = auth.PoweredBy
+		networkApiConfiguration.XPoweredBy = auth.PoweredBy
+		tagApiConfiguration.XPoweredBy = auth.PoweredBy
+		auditApiConfiguration.XPoweredBy = auth.PoweredBy
+		ipApiConfiguration.XPoweredBy = auth.PoweredBy
+		networkStorageApiConfiguration.XPoweredBy = auth.PoweredBy
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -290,13 +290,13 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	}
 
 	if auth.PoweredBy != "" {
-		bmcApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		rancherApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		networkApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		tagApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		auditApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		ipApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		networkStorageApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		bmcApiConfiguration.XPoweredBy = auth.PoweredBy
+		rancherApiConfiguration.XPoweredBy = auth.PoweredBy
+		networkApiConfiguration.XPoweredBy = auth.PoweredBy
+		tagApiConfiguration.XPoweredBy = auth.PoweredBy
+		auditApiConfiguration.XPoweredBy = auth.PoweredBy
+		ipApiConfiguration.XPoweredBy = auth.PoweredBy
+		networkStorageApiConfiguration.XPoweredBy = auth.PoweredBy
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -348,13 +348,13 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 		networkStorageApiConfiguration.UserAgent = auth.UserAgent
 	}
 	if auth.PoweredBy != "" {
-		bmcApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		rancherApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		networkApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		tagApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		auditApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		ipApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
-		networkStorageApiConfiguration.AddDefaultHeader("X-Powered-By", auth.PoweredBy)
+		bmcApiConfiguration.XPoweredBy = auth.PoweredBy
+		rancherApiConfiguration.XPoweredBy = auth.PoweredBy
+		networkApiConfiguration.XPoweredBy = auth.PoweredBy
+		tagApiConfiguration.XPoweredBy = auth.PoweredBy
+		auditApiConfiguration.XPoweredBy = auth.PoweredBy
+		ipApiConfiguration.XPoweredBy = auth.PoweredBy
+		networkStorageApiConfiguration.XPoweredBy = auth.PoweredBy
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
