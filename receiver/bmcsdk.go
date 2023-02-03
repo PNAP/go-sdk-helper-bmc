@@ -12,6 +12,7 @@ import (
 
 	"github.com/mitchellh/go-homedir"
 	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi/v2"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
 	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v2"
 	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
@@ -30,6 +31,7 @@ type BMCSDK struct {
 	AuditAPIClient          auditapiclient.APIClient
 	IpBlockAPIClient        ipapiclient.APIClient
 	NetworkStorageAPIClient networkstorageapiclient.APIClient
+	BillingAPIClient        billingapiclient.APIClient
 	PNAPClient              PNAPClient
 }
 
@@ -56,6 +58,7 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 	auditApiConfiguration := auditapiclient.NewConfiguration()
 	ipApiConfiguration := ipapiclient.NewConfiguration()
 	networkStorageApiConfiguration := networkstorageapiclient.NewConfiguration()
+	billingApiConfiguration := billingapiclient.NewConfiguration()
 
 	bmcApiConfiguration.HTTPClient = config.Client(context.Background())
 	rancherApiConfiguration.HTTPClient = config.Client(context.Background())
@@ -64,6 +67,7 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 	auditApiConfiguration.HTTPClient = config.Client(context.Background())
 	ipApiConfiguration.HTTPClient = config.Client(context.Background())
 	networkStorageApiConfiguration.HTTPClient = config.Client(context.Background())
+	billingApiConfiguration.HTTPClient = config.Client(context.Background())
 
 	if auth.UserAgent != "" {
 		bmcApiConfiguration.UserAgent = auth.UserAgent
@@ -73,6 +77,7 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 		auditApiConfiguration.UserAgent = auth.UserAgent
 		ipApiConfiguration.UserAgent = auth.UserAgent
 		networkStorageApiConfiguration.UserAgent = auth.UserAgent
+		billingApiConfiguration.UserAgent = auth.UserAgent
 	}
 
 	if auth.PoweredBy != "" {
@@ -83,6 +88,7 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 		auditApiConfiguration.XPoweredBy = auth.PoweredBy
 		ipApiConfiguration.XPoweredBy = auth.PoweredBy
 		networkStorageApiConfiguration.XPoweredBy = auth.PoweredBy
+		billingApiConfiguration.XPoweredBy = auth.PoweredBy
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -92,10 +98,11 @@ func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
 	ipApiClient := ipapiclient.NewAPIClient(ipApiConfiguration)
 	networkStorageApiClient := networkstorageapiclient.NewAPIClient(networkStorageApiConfiguration)
+	billingApiClient := billingapiclient.NewAPIClient(billingApiConfiguration)
 	pnapClient, err := NewPNAPClientWithDefaultConfig()
 	pnapClient.SetAuthentication(auth)
 
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, *networkStorageApiClient, pnapClient}
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, *networkStorageApiClient, *billingApiClient, pnapClient}
 	return sdkClient, err
 }
 
@@ -120,6 +127,7 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	auditApiConfiguration := auditapiclient.NewConfiguration()
 	ipApiConfiguration := ipapiclient.NewConfiguration()
 	networkStorageApiConfiguration := networkstorageapiclient.NewConfiguration()
+	billingApiConfiguration := billingapiclient.NewConfiguration()
 
 	if auth.ApiHostName != "" {
 		bmcApiConfiguration.Servers = bmcapiclient.ServerConfigurations{
@@ -157,6 +165,11 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 				URL: auth.ApiHostName + "network-storage/v1",
 			},
 		}
+		billingApiConfiguration.Servers = billingapiclient.ServerConfigurations{
+			{
+				URL: auth.ApiHostName + "billing/v1",
+			},
+		}
 	}
 
 	bmcApiConfiguration.HTTPClient = config.Client(context.Background())
@@ -166,6 +179,7 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	auditApiConfiguration.HTTPClient = config.Client(context.Background())
 	ipApiConfiguration.HTTPClient = config.Client(context.Background())
 	networkStorageApiConfiguration.HTTPClient = config.Client(context.Background())
+	billingApiConfiguration.HTTPClient = config.Client(context.Background())
 
 	if auth.UserAgent != "" {
 		bmcApiConfiguration.UserAgent = auth.UserAgent
@@ -175,6 +189,7 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 		auditApiConfiguration.UserAgent = auth.UserAgent
 		ipApiConfiguration.UserAgent = auth.UserAgent
 		networkStorageApiConfiguration.UserAgent = auth.UserAgent
+		billingApiConfiguration.UserAgent = auth.UserAgent
 	}
 
 	if auth.PoweredBy != "" {
@@ -185,6 +200,7 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 		auditApiConfiguration.XPoweredBy = auth.PoweredBy
 		ipApiConfiguration.XPoweredBy = auth.PoweredBy
 		networkStorageApiConfiguration.XPoweredBy = auth.PoweredBy
+		billingApiConfiguration.XPoweredBy = auth.PoweredBy
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -194,10 +210,11 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
 	ipApiClient := ipapiclient.NewAPIClient(ipApiConfiguration)
 	networkStorageApiClient := networkstorageapiclient.NewAPIClient(networkStorageApiConfiguration)
+	billingApiClient := billingapiclient.NewAPIClient(billingApiConfiguration)
 
 	pnapClient := NewPNAPClient(auth)
 
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, *networkStorageApiClient, pnapClient}
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, *networkStorageApiClient, *billingApiClient, pnapClient}
 	return sdkClient
 }
 
@@ -222,6 +239,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	auditApiConfiguration := auditapiclient.NewConfiguration()
 	ipApiConfiguration := ipapiclient.NewConfiguration()
 	networkStorageApiConfiguration := networkstorageapiclient.NewConfiguration()
+	billingApiConfiguration := billingapiclient.NewConfiguration()
 
 	if auth.ApiHostName != "" {
 		bmcApiConfiguration.Servers = bmcapiclient.ServerConfigurations{
@@ -259,6 +277,11 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 				URL: auth.ApiHostName + "network-storage/v1",
 			},
 		}
+		billingApiConfiguration.Servers = billingapiclient.ServerConfigurations{
+			{
+				URL: auth.ApiHostName + "billing/v1",
+			},
+		}
 	}
 
 	bmcApiConfiguration.HTTPClient = &http.Client{}
@@ -268,6 +291,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	auditApiConfiguration.HTTPClient = &http.Client{}
 	ipApiConfiguration.HTTPClient = &http.Client{}
 	networkStorageApiConfiguration.HTTPClient = &http.Client{}
+	billingApiConfiguration.HTTPClient = &http.Client{}
 
 	if auth.UserAgent != "" {
 		bmcApiConfiguration.UserAgent = auth.UserAgent
@@ -277,6 +301,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 		auditApiConfiguration.UserAgent = auth.UserAgent
 		ipApiConfiguration.UserAgent = auth.UserAgent
 		networkStorageApiConfiguration.UserAgent = auth.UserAgent
+		billingApiConfiguration.UserAgent = auth.UserAgent
 	}
 
 	if auth.BearerToken != "" {
@@ -287,6 +312,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 		auditApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
 		ipApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
 		networkStorageApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
+		billingApiConfiguration.AddDefaultHeader("Authorization", "Bearer "+auth.BearerToken)
 	}
 
 	if auth.PoweredBy != "" {
@@ -297,6 +323,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 		auditApiConfiguration.XPoweredBy = auth.PoweredBy
 		ipApiConfiguration.XPoweredBy = auth.PoweredBy
 		networkStorageApiConfiguration.XPoweredBy = auth.PoweredBy
+		billingApiConfiguration.XPoweredBy = auth.PoweredBy
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -306,10 +333,11 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
 	ipApiClient := ipapiclient.NewAPIClient(ipApiConfiguration)
 	networkStorageApiClient := networkstorageapiclient.NewAPIClient(networkStorageApiConfiguration)
+	billingApiClient := billingapiclient.NewAPIClient(billingApiConfiguration)
 
 	pnapClient := NewPNAPClientWithTokenAuthentication(auth)
 
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, *networkStorageApiClient, pnapClient}
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, *networkStorageApiClient, *billingApiClient, pnapClient}
 	return sdkClient
 }
 
@@ -328,6 +356,7 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 	auditApiConfiguration := auditapiclient.NewConfiguration()
 	ipApiConfiguration := ipapiclient.NewConfiguration()
 	networkStorageApiConfiguration := networkstorageapiclient.NewConfiguration()
+	billingApiConfiguration := billingapiclient.NewConfiguration()
 
 	bmcApiConfiguration.HTTPClient = config.Client(context.Background())
 
@@ -337,6 +366,7 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 	auditApiConfiguration.HTTPClient = config.Client(context.Background())
 	ipApiConfiguration.HTTPClient = config.Client(context.Background())
 	networkStorageApiConfiguration.HTTPClient = config.Client(context.Background())
+	billingApiConfiguration.HTTPClient = config.Client(context.Background())
 
 	if auth.UserAgent != "" {
 		bmcApiConfiguration.UserAgent = auth.UserAgent
@@ -346,6 +376,7 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 		auditApiConfiguration.UserAgent = auth.UserAgent
 		ipApiConfiguration.UserAgent = auth.UserAgent
 		networkStorageApiConfiguration.UserAgent = auth.UserAgent
+		billingApiConfiguration.UserAgent = auth.UserAgent
 	}
 	if auth.PoweredBy != "" {
 		bmcApiConfiguration.XPoweredBy = auth.PoweredBy
@@ -355,6 +386,7 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 		auditApiConfiguration.XPoweredBy = auth.PoweredBy
 		ipApiConfiguration.XPoweredBy = auth.PoweredBy
 		networkStorageApiConfiguration.XPoweredBy = auth.PoweredBy
+		billingApiConfiguration.XPoweredBy = auth.PoweredBy
 	}
 
 	bmcApiClient := bmcapiclient.NewAPIClient(bmcApiConfiguration)
@@ -364,10 +396,11 @@ func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, err
 	auditApiClient := auditapiclient.NewAPIClient(auditApiConfiguration)
 	ipApiClient := ipapiclient.NewAPIClient(ipApiConfiguration)
 	networkStorageApiClient := networkstorageapiclient.NewAPIClient(networkStorageApiConfiguration)
+	billingApiClient := billingapiclient.NewAPIClient(billingApiConfiguration)
 
 	pnapClient, err := NewPNAPClientWithCustomConfig(path)
 	pnapClient.SetAuthentication(auth)
-	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, *networkStorageApiClient, pnapClient}
+	sdkClient := BMCSDK{*bmcApiClient, *rancherApiClient, *networkApiClient, *tagApiClient, *auditApiClient, *ipApiClient, *networkStorageApiClient, *billingApiClient, pnapClient}
 	return sdkClient, err
 }
 

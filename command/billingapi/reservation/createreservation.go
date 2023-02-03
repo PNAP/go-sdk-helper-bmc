@@ -1,43 +1,36 @@
 package reservation
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 // CreateReservationCommand represents command that creates new package reservation for the account.
 // Use NewCreateReservationCommand to initialize command properly.
 type CreateReservationCommand struct {
-	receiver    receiver.BMCSDK
-	reservation dto.ReservationRequest
+	receiver           receiver.BMCSDK
+	reservationRequest billingapiclient.ReservationRequest
 }
 
 // Execute creates new package reservation for the account.
-func (command *CreateReservationCommand) Execute() (*dto.Reservation, error) {
-	var req = command.receiver
-	var apiPrefix = "billing/v1/"
-	val, err := command.reservation.ToBytes()
-	if err != nil {
-		return nil, err
-	}
+func (command *CreateReservationCommand) Execute() (*billingapiclient.Reservation, error) {
 
-	httpResponse, err := req.PNAPClient.Post(apiPrefix+"reservations", val)
+	reservation, httpResponse, err := command.receiver.BillingAPIClient.ReservationsApi.ReservationsPost(context.Background()).ReservationRequest(command.reservationRequest).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		var reservationResponse = dto.Reservation{}
-		reservationResponse.FromBytes(httpResponse)
-		return &reservationResponse, nil
+		return reservation, nil
 	}
 	return nil, fmt.Errorf("CreateReservationCommand %s", errResolver.Error)
-
 }
 
 //NewCreateReservationCommand constructs new commmand of this type
-func NewCreateReservationCommand(requester receiver.BMCSDK, reservation dto.ReservationRequest) *CreateReservationCommand {
+func NewCreateReservationCommand(receiver receiver.BMCSDK, reservationRequest billingapiclient.ReservationRequest) *CreateReservationCommand {
 
-	return &CreateReservationCommand{requester, reservation}
+	return &CreateReservationCommand{receiver, reservationRequest}
 }

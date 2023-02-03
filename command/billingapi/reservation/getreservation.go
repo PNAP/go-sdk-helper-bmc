@@ -1,10 +1,12 @@
 package reservation
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 // GetReservationCommand represents command that retrieves specified reservation for the account.
@@ -15,25 +17,20 @@ type GetReservationCommand struct {
 }
 
 // Execute retrieves specified reservation for the account.
-func (command *GetReservationCommand) Execute() (*dto.Reservation, error) {
-	var req = command.receiver
-	var apiPrefix = "billing/v1/"
+func (command *GetReservationCommand) Execute() (*billingapiclient.Reservation, error) {
 
-	httpResponse, err := req.PNAPClient.Get(apiPrefix + "reservations/" + command.reservationID)
+	reservation, httpResponse, err := command.receiver.BillingAPIClient.ReservationsApi.ReservationsReservationIdGet(context.Background(), command.reservationID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		var reservationResponse = dto.Reservation{}
-		reservationResponse.FromBytes(httpResponse)
-		return &reservationResponse, nil
+		return reservation, nil
 	}
 	return nil, fmt.Errorf("GetReservationCommand %s", errResolver.Error)
-
 }
 
 //NewGetReservationCommand constructs new commmand of this type
-func NewGetReservationCommand(requester receiver.BMCSDK, reservationID string) *GetReservationCommand {
+func NewGetReservationCommand(receiver receiver.BMCSDK, reservationID string) *GetReservationCommand {
 
-	return &GetReservationCommand{requester, reservationID}
+	return &GetReservationCommand{receiver, reservationID}
 }

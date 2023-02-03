@@ -1,6 +1,7 @@
 package product
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
@@ -16,28 +17,12 @@ type GetProductsCommand struct {
 
 // Execute retrieves products for the account.
 func (command *GetProductsCommand) Execute() ([]dto.Product, error) {
-	var req = command.receiver
-	var apiPrefix = "billing/v1/products?"
-
-	var queryParams = ""
 	productCode := command.productQuery.ProductCode
-	if productCode != "" {
-		queryParams = queryParams + "&productCode=" + productCode
-	}
 	productCategory := command.productQuery.ProductCategory
-	if productCategory != "" {
-		queryParams = queryParams + "&productCategory=" + productCategory
-	}
 	skuCode := command.productQuery.SKUCode
-	if skuCode != "" {
-		queryParams = queryParams + "&skuCode=" + skuCode
-	}
 	location := command.productQuery.Location
-	if location != "" {
-		queryParams = queryParams + "&location=" + location
-	}
 
-	httpResponse, err := req.PNAPClient.Get(apiPrefix + queryParams)
+	_, httpResponse, err := command.receiver.BillingAPIClient.ProductsApi.ProductsGet(context.Background()).ProductCode(productCode).ProductCategory(productCategory).SkuCode(skuCode).Location(location).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
@@ -52,7 +37,7 @@ func (command *GetProductsCommand) Execute() ([]dto.Product, error) {
 }
 
 //NewGetProductsCommand constructs new commmand of this type
-func NewGetProductsCommand(requester receiver.BMCSDK, productQuery dto.ProductQuery) *GetProductsCommand {
+func NewGetProductsCommand(reciever receiver.BMCSDK, productQuery dto.ProductQuery) *GetProductsCommand {
 
-	return &GetProductsCommand{requester, productQuery}
+	return &GetProductsCommand{reciever, productQuery}
 }
