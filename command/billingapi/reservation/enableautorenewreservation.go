@@ -1,10 +1,12 @@
 package reservation
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
 )
 
 // EnableAutoRenewReservationCommand represents command that enables auto-renewal for specific reservation.
@@ -15,25 +17,20 @@ type EnableAutoRenewReservationCommand struct {
 }
 
 // Execute enables auto-renewal for specific reservation.
-func (command *EnableAutoRenewReservationCommand) Execute() (*dto.Reservation, error) {
-	var req = command.receiver
-	var apiPrefix = "billing/v1/"
+func (command *EnableAutoRenewReservationCommand) Execute() (*billingapiclient.Reservation, error) {
 
-	httpResponse, err := req.PNAPClient.Post(apiPrefix+"reservations/"+command.reservationID+"/actions/auto-renew/enable", nil)
+	reservation, httpResponse, err := command.receiver.BillingAPIClient.ReservationsApi.ReservationsReservationIdActionsAutoRenewEnablePost(context.Background(), command.reservationID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		var reservationResponse = dto.Reservation{}
-		reservationResponse.FromBytes(httpResponse)
-		return &reservationResponse, nil
+		return reservation, nil
 	}
 	return nil, fmt.Errorf("EnableAutoRenewReservationCommand %s", errResolver.Error)
-
 }
 
 //NewEnableAutoRenewReservationCommand constructs new commmand of this type
-func NewEnableAutoRenewReservationCommand(requester receiver.BMCSDK, reservationID string) *EnableAutoRenewReservationCommand {
+func NewEnableAutoRenewReservationCommand(receiver receiver.BMCSDK, reservationID string) *EnableAutoRenewReservationCommand {
 
-	return &EnableAutoRenewReservationCommand{requester, reservationID}
+	return &EnableAutoRenewReservationCommand{receiver, reservationID}
 }

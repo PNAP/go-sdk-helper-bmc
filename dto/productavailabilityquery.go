@@ -9,12 +9,12 @@ import (
 
 //ProductAvailabilityQuery represents query parameters for product availabilities retrieval
 type ProductAvailabilityQuery struct {
-	ProductCategory              *[]string `json:"productCategory,omitempty"`
-	ProductCode                  *[]string `json:"productCode,omitempty"`
-	ShowOnlyMinQuantityAvailable *bool     `json:"showOnlyMinQuantityAvailable,omitempty"`
-	Location                     *[]string `json:"location,omitempty"`
-	Solution                     *[]string `json:"solution,omitempty"`
-	MinQuantity                  *int32    `json:"minQuantity,omitempty"`
+	ProductCategory              []string `json:"productCategory,omitempty"`
+	ProductCode                  []string `json:"productCode,omitempty"`
+	ShowOnlyMinQuantityAvailable bool     `json:"showOnlyMinQuantityAvailable,omitempty"`
+	Location                     []string `json:"location,omitempty"`
+	Solution                     []string `json:"solution,omitempty"`
+	MinQuantity                  float32  `json:"minQuantity,omitempty"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader
