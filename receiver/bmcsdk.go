@@ -124,7 +124,7 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 	if auth.ApiHostName != "" {
 		bmcApiConfiguration.Servers = bmcapiclient.ServerConfigurations{
 			{
-				URL: auth.ApiHostName + "bmc/v1",
+				URL: auth.ApiHostName + "bmc/v1alpha",
 			},
 		}
 		rancherApiConfiguration.Servers = rancherapiclient.ServerConfigurations{
@@ -134,7 +134,7 @@ func NewBMCSDK(auth dto.Configuration) BMCSDK {
 		}
 		networkApiConfiguration.Servers = networkapiclient.ServerConfigurations{
 			{
-				URL: auth.ApiHostName + "networks/v1",
+				URL: auth.ApiHostName + "networks/v1alpha",
 			},
 		}
 		tagApiConfiguration.Servers = tagapiclient.ServerConfigurations{
@@ -226,7 +226,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	if auth.ApiHostName != "" {
 		bmcApiConfiguration.Servers = bmcapiclient.ServerConfigurations{
 			{
-				URL: auth.ApiHostName + "bmc/v1",
+				URL: auth.ApiHostName + "bmc/v1alpha",
 			},
 		}
 		rancherApiConfiguration.Servers = rancherapiclient.ServerConfigurations{
@@ -236,7 +236,7 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 		}
 		networkApiConfiguration.Servers = networkapiclient.ServerConfigurations{
 			{
-				URL: auth.ApiHostName + "networks/v1",
+				URL: auth.ApiHostName + "networks/v1alpha",
 			},
 		}
 		tagApiConfiguration.Servers = tagapiclient.ServerConfigurations{
