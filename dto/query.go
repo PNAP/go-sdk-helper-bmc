@@ -7,13 +7,13 @@ import (
 	"io"
 )
 
-//CreateServerQuery represents query parameters for server provisioning
-type CreateServerQuery struct {
+//Query represents query parameters used in various API calls
+type Query struct {
 	Force bool `json:"force"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader
-func (dto CreateServerQuery) ToBytes() (io.Reader, error) {
+func (dto Query) ToBytes() (io.Reader, error) {
 	requestByte, err := json.Marshal(dto)
 
 	if err != nil {

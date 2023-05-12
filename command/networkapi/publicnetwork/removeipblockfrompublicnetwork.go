@@ -14,12 +14,15 @@ type RemoveIpBlockFromPublicNetworkCommand struct {
 	receiver  receiver.BMCSDK
 	networkID string
 	ipBlockID string
+	query     dto.Query
 }
 
 // Execute runs RemoveIpBlockFromPublicNetworkCommand
 func (command *RemoveIpBlockFromPublicNetworkCommand) Execute() (*string, error) {
 
-	response, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(context.Background(), command.networkID, command.ipBlockID).Execute()
+	force := command.query.Force
+
+	response, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(context.Background(), command.networkID, command.ipBlockID).Force(force).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
@@ -30,7 +33,7 @@ func (command *RemoveIpBlockFromPublicNetworkCommand) Execute() (*string, error)
 }
 
 //NewRemoveIpBlockFromPublicNetworkCommand constructs new commmand of this type
-func NewRemoveIpBlockFromPublicNetworkCommand(receiver receiver.BMCSDK, networkID string, ipBlockID string) *RemoveIpBlockFromPublicNetworkCommand {
+func NewRemoveIpBlockFromPublicNetworkCommand(receiver receiver.BMCSDK, networkID string, ipBlockID string, query dto.Query) *RemoveIpBlockFromPublicNetworkCommand {
 
-	return &RemoveIpBlockFromPublicNetworkCommand{receiver, networkID, ipBlockID}
+	return &RemoveIpBlockFromPublicNetworkCommand{receiver, networkID, ipBlockID, query}
 }

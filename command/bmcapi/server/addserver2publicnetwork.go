@@ -15,12 +15,15 @@ type AddServer2PublicNetworkCommand struct {
 	receiver            receiver.BMCSDK
 	serverID            string
 	serverPublicNetwork bmcapiclient.ServerPublicNetwork
+	query               dto.Query
 }
 
 // Execute runs AddServer2PublicNetworkCommand
 func (command *AddServer2PublicNetworkCommand) Execute() (*bmcapiclient.ServerPublicNetwork, error) {
 
-	server, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), command.serverID).ServerPublicNetwork(command.serverPublicNetwork).Execute()
+	force := command.query.Force
+
+	server, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), command.serverID).Force(force).ServerPublicNetwork(command.serverPublicNetwork).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
@@ -31,7 +34,7 @@ func (command *AddServer2PublicNetworkCommand) Execute() (*bmcapiclient.ServerPu
 }
 
 //NewAddServer2PublicNetworkCommand constructs new commmand of this type
-func NewAddServer2PublicNetworkCommand(receiver receiver.BMCSDK, serverID string, serverPublicNetwork bmcapiclient.ServerPublicNetwork) *AddServer2PublicNetworkCommand {
+func NewAddServer2PublicNetworkCommand(receiver receiver.BMCSDK, serverID string, serverPublicNetwork bmcapiclient.ServerPublicNetwork, query dto.Query) *AddServer2PublicNetworkCommand {
 
-	return &AddServer2PublicNetworkCommand{receiver, serverID, serverPublicNetwork}
+	return &AddServer2PublicNetworkCommand{receiver, serverID, serverPublicNetwork, query}
 }
