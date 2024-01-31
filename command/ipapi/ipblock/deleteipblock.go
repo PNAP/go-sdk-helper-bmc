@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v2"
+	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v3"
 )
 
 // DeleteIpBlockCommand represents command that deletes a specific IP Block belonging to the account
@@ -19,7 +19,7 @@ type DeleteIpBlockCommand struct {
 // Execute runs DeleteIpBlockCommand
 func (command *DeleteIpBlockCommand) Execute() (*ipapiclient.DeleteIpBlockResult, error) {
 
-	result, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksApi.IpBlocksIpBlockIdDelete(context.Background(), command.ipBlockID).Execute()
+	result, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksAPI.IpBlocksIpBlockIdDelete(context.Background(), command.ipBlockID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

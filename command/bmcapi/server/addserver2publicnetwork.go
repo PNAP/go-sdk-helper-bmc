@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // AddServer2PublicNetworkCommand represents command that configures public network on specific server
@@ -23,7 +23,8 @@ func (command *AddServer2PublicNetworkCommand) Execute() (*bmcapiclient.ServerPu
 
 	force := command.query.Force
 
-	server, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdPublicNetworksPost(context.Background(), command.serverID).Force(force).ServerPublicNetwork(command.serverPublicNetwork).Execute()
+	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPublicNetworksPost(context.Background(), command.serverID).Force(force).
+		ServerPublicNetwork(command.serverPublicNetwork).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi"
+	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v2"
 )
 
 // GetLocationsCommand represents command that retrieves the locations info
@@ -22,7 +22,7 @@ func (command *GetLocationsCommand) Execute() ([]locationapiclient.Location, err
 	location := command.query.Location
 	productCategory := command.query.ProductCategory
 
-	locations, httpResponse, err := command.receiver.LocationAPIClient.LocationsApi.GetLocations(context.Background()).Location(location).ProductCategory(productCategory).Execute()
+	locations, httpResponse, err := command.receiver.LocationAPIClient.LocationsAPI.GetLocations(context.Background()).Location(location).ProductCategory(productCategory).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi"
+	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v2"
 )
 
 // CreateStorageNetworkVolumeCommand represents command that creates a volume on specific storage network on the account
@@ -19,7 +19,7 @@ type CreateStorageNetworkVolumeCommand struct {
 // Execute runs CreateStorageNetworkVolumeCommand
 func (command *CreateStorageNetworkVolumeCommand) Execute() (*networkstorageapiclient.Volume, error) {
 
-	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksApi.StorageNetworksStorageNetworkIdVolumesPost(context.Background(), command.storageNetworkId).VolumeCreate(command.volumeCreate).Execute()
+	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesPost(context.Background(), command.storageNetworkId).VolumeCreate(command.volumeCreate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

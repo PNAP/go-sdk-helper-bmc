@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // CreateServerCommand represents command that provisions new server
@@ -24,7 +24,7 @@ func (command *CreateServerCommand) Execute() (*bmcapiclient.Server, error) {
 
 	force := command.query.Force
 
-	server, httpResponse, err := command.receiver.APIClient.ServersApi.ServersPost(context.Background()).Force(force).ServerCreate(command.serverCreate).Execute()
+	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).Force(force).ServerCreate(command.serverCreate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

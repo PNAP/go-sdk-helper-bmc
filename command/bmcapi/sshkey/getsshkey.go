@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // GetSshKeyCommand represents command that retrieves details about specific ssh key for the account
@@ -21,7 +21,7 @@ type GetSshKeyCommand struct {
 // Execute runs GetSshKeyCommand
 func (command *GetSshKeyCommand) Execute() (*bmcapiclient.SshKey, error) {
 
-	sshKey, httpResponse, err := command.receiver.APIClient.SSHKeysApi.SshKeysSshKeyIdGet(context.Background(), command.sshKeyID).Execute()
+	sshKey, httpResponse, err := command.receiver.APIClient.SSHKeysAPI.SshKeysSshKeyIdGet(context.Background(), command.sshKeyID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

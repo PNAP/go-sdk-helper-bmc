@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // ResetServerCommand represents command that resets specific server
@@ -22,7 +22,7 @@ type ResetServerCommand struct {
 // Execute resets specific server
 func (command *ResetServerCommand) Execute() (*bmcapiclient.ResetResult, error) {
 
-	result, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdActionsResetPost(context.Background(), command.serverID).ServerReset(command.serverReset).Execute()
+	result, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdActionsResetPost(context.Background(), command.serverID).ServerReset(command.serverReset).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v3"
 )
 
 // GetPublicNetworkCommand represents command that retrieves details about speific public network on the account
@@ -18,7 +18,7 @@ type GetPublicNetworkCommand struct {
 // Execute runs GetPublicNetworkCommand
 func (command *GetPublicNetworkCommand) Execute() (*networkapiclient.PublicNetwork, error) {
 
-	network, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksApi.PublicNetworksNetworkIdGet(context.Background(), command.networkID).Execute()
+	network, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksAPI.PublicNetworksNetworkIdGet(context.Background(), command.networkID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

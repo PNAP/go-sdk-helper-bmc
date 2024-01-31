@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v2"
+	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v3"
 )
 
 // CreateIpBlockCommand represents command that adds a new IP Block to the account
@@ -19,7 +19,7 @@ type CreateIpBlockCommand struct {
 // Execute runs CreateIpBlockCommand
 func (command *CreateIpBlockCommand) Execute() (*ipapiclient.IpBlock, error) {
 
-	ipBlock, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksApi.IpBlocksPost(context.Background()).IpBlockCreate(command.ipBlockCreate).Execute()
+	ipBlock, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksAPI.IpBlocksPost(context.Background()).IpBlockCreate(command.ipBlockCreate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

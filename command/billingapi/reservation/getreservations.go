@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v2"
 )
 
 // GetReservationsCommand represents command that retrieves all reservations for the account.
@@ -18,7 +18,7 @@ type GetReservationsCommand struct {
 // Execute retrieves all reservations for the account.
 func (command *GetReservationsCommand) Execute() ([]billingapiclient.Reservation, error) {
 
-	reservations, httpResponse, err := command.receiver.BillingAPIClient.ReservationsApi.ReservationsGet(context.Background()).Execute()
+	reservations, httpResponse, err := command.receiver.BillingAPIClient.ReservationsAPI.ReservationsGet(context.Background()).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

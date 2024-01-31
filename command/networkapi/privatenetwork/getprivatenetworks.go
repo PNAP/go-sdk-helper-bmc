@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v3"
 )
 
 // GetPrivateNetworksCommand represents command that lists all private networks on the account
@@ -17,7 +17,7 @@ type GetPrivateNetworksCommand struct {
 // Execute runs GetPrivateNetworksCommand
 func (command *GetPrivateNetworksCommand) Execute() ([]networkapiclient.PrivateNetwork, error) {
 
-	servers, httpResponse, err := command.receiver.NetworkAPIClient.PrivateNetworksApi.PrivateNetworksGet(context.Background()).Execute()
+	servers, httpResponse, err := command.receiver.NetworkAPIClient.PrivateNetworksAPI.PrivateNetworksGet(context.Background()).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

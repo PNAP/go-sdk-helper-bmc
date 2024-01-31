@@ -22,7 +22,7 @@ func (command *RemoveIpBlockFromPublicNetworkCommand) Execute() (*string, error)
 
 	force := command.query.Force
 
-	response, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(context.Background(), command.networkID, command.ipBlockID).Force(force).Execute()
+	response, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksIpBlockIdDelete(context.Background(), command.networkID, command.ipBlockID).Force(force).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

@@ -17,7 +17,7 @@ type DeleteStorageNetworkCommand struct {
 // Execute runs DeleteStorageNetworkCommand
 func (command *DeleteStorageNetworkCommand) Execute() error {
 
-	httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksApi.StorageNetworksIdDelete(context.Background(), command.storagenetworkID).Execute()
+	httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksIdDelete(context.Background(), command.storagenetworkID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

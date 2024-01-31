@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // CreateSshKeyCommand represents command that adds new ssh key to the account
@@ -21,7 +21,7 @@ type CreateSshKeyCommand struct {
 // Execute runs CreateSshKeyCommand
 func (command *CreateSshKeyCommand) Execute() (*bmcapiclient.SshKey, error) {
 
-	sshKey, httpResponse, err := command.receiver.APIClient.SSHKeysApi.SshKeysPost(context.Background()).SshKeyCreate(command.sshKeyCreate).Execute()
+	sshKey, httpResponse, err := command.receiver.APIClient.SSHKeysAPI.SshKeysPost(context.Background()).SshKeyCreate(command.sshKeyCreate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

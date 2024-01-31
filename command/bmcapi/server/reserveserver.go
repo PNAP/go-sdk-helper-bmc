@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // ReserveServerCommand represents command that reserves specific server
@@ -22,7 +22,7 @@ type ReserveServerCommand struct {
 // Execute reserves specific server
 func (command *ReserveServerCommand) Execute() (*bmcapiclient.Server, error) {
 
-	server, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdActionsReservePost(context.Background(), command.serverID).ServerReserve(command.serverReserve).Execute()
+	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdActionsReservePost(context.Background(), command.serverID).ServerReserve(command.serverReserve).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

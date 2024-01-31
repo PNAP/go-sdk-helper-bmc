@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v2"
+	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v3"
 )
 
 // CreateTagCommand represents command that adds a new tag to the account
@@ -19,7 +19,7 @@ type CreateTagCommand struct {
 // Execute runs CreateTagCommand
 func (command *CreateTagCommand) Execute() (*tagapiclient.Tag, error) {
 
-	tag, httpResponse, err := command.receiver.TagAPIClient.TagsApi.TagsPost(context.Background()).TagCreate(command.tagCreate).Execute()
+	tag, httpResponse, err := command.receiver.TagAPIClient.TagsAPI.TagsPost(context.Background()).TagCreate(command.tagCreate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

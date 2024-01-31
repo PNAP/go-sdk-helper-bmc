@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // UpdateSshKeyCommand represents command that updates specific ssh key for the account
@@ -22,7 +22,7 @@ type UpdateSshKeyCommand struct {
 // Execute runs UpdateSshKeyCommand
 func (command *UpdateSshKeyCommand) Execute() (*bmcapiclient.SshKey, error) {
 
-	sshKey, httpResponse, err := command.receiver.APIClient.SSHKeysApi.SshKeysSshKeyIdPut(context.Background(), command.sshKeyID).SshKeyUpdate(command.sshKeyUpdate).Execute()
+	sshKey, httpResponse, err := command.receiver.APIClient.SSHKeysAPI.SshKeysSshKeyIdPut(context.Background(), command.sshKeyID).SshKeyUpdate(command.sshKeyUpdate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

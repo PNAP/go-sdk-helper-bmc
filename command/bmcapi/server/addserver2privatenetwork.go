@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // AddServer2PrivateNetworkCommand represents command that configures private network on specific server
@@ -25,7 +25,8 @@ func (command *AddServer2PrivateNetworkCommand) Execute() (*bmcapiclient.ServerP
 
 	force := command.query.Force
 
-	server, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdPrivateNetworksPost(context.Background(), command.serverID).Force(force).ServerPrivateNetwork(command.serverPrivateNetwork).Execute()
+	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPrivateNetworksPost(context.Background(), command.serverID).Force(force).
+		ServerPrivateNetwork(command.serverPrivateNetwork).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

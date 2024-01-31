@@ -18,7 +18,7 @@ type DeleteServerPublicNetworkCommand struct {
 // Execute runs DeleteServerPublicNetworkCommand for specific server
 func (command *DeleteServerPublicNetworkCommand) Execute() (*string, error) {
 
-	response, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdPublicNetworksDelete(context.Background(), command.serverID, command.networkID).Execute()
+	response, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPublicNetworksDelete(context.Background(), command.serverID, command.networkID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

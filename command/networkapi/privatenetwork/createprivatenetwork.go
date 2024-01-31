@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v3"
 )
 
 // CreatePrivateNetworkCommand represents command that configures new private network on the server
@@ -21,7 +21,7 @@ func (command *CreatePrivateNetworkCommand) Execute() (*networkapiclient.Private
 
 	force := command.query.Force
 
-	privateNetwork, httpResponse, err := command.receiver.NetworkAPIClient.PrivateNetworksApi.PrivateNetworksPost(context.Background()).Force(force).PrivateNetworkCreate(command.privateNetworkCreate).Execute()
+	privateNetwork, httpResponse, err := command.receiver.NetworkAPIClient.PrivateNetworksAPI.PrivateNetworksPost(context.Background()).Force(force).PrivateNetworkCreate(command.privateNetworkCreate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

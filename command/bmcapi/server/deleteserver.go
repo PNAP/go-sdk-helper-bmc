@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // DeleteServerCommand represents command that deletes specific server
@@ -21,7 +21,7 @@ type DeleteServerCommand struct {
 // Execute deprovisions specific server
 func (command *DeleteServerCommand) Execute() (*bmcapiclient.DeleteResult, error) {
 
-	result, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdDelete(context.Background(), command.serverID).Execute()
+	result, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdDelete(context.Background(), command.serverID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

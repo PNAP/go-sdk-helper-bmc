@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // SetServerTagsCommand represents command that sets tags for specific server
@@ -20,7 +20,7 @@ type SetServerTagsCommand struct {
 // Execute sets tags for specific server
 func (command *SetServerTagsCommand) Execute() (*bmcapiclient.Server, error) {
 
-	server, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdTagsPut(context.Background(), command.serverID).TagAssignmentRequest(command.tagAssignmentRequests).Execute()
+	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdTagsPut(context.Background(), command.serverID).TagAssignmentRequest(command.tagAssignmentRequests).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

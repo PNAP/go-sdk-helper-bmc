@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v2"
+	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v3"
 )
 
 // CreateClusterCommand represents command that adds new Rancher Server Deployment to the account
@@ -21,7 +21,7 @@ type CreateClusterCommand struct {
 // Execute runs CreateClusterCommand
 func (command *CreateClusterCommand) Execute() (*rancherapiclient.Cluster, error) {
 
-	cluster, httpResponse, err := command.receiver.RancherAPIClient.ClustersApi.ClustersPost(context.Background()).Cluster(command.cluster).Execute()
+	cluster, httpResponse, err := command.receiver.RancherAPIClient.ClustersAPI.ClustersPost(context.Background()).Cluster(command.cluster).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

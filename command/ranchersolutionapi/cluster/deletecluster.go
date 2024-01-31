@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v2"
+	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v3"
 )
 
 // DeleteClusterCommand represents command that deletes a cluster
@@ -21,7 +21,7 @@ type DeleteClusterCommand struct {
 // Execute runs DeleteClusterCommand
 func (command *DeleteClusterCommand) Execute() (*rancherapiclient.DeleteResult, error) {
 
-	result, httpResponse, err := command.receiver.RancherAPIClient.ClustersApi.ClustersIdDelete(context.Background(), command.clusterID).Execute()
+	result, httpResponse, err := command.receiver.RancherAPIClient.ClustersAPI.ClustersIdDelete(context.Background(), command.clusterID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

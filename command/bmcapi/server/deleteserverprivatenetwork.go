@@ -18,7 +18,7 @@ type DeleteServerPrivateNetworkCommand struct {
 // Execute runs DeleteServerPrivateNetwork command for specific server
 func (command *DeleteServerPrivateNetworkCommand) Execute() (*string, error) {
 
-	server, httpResponse, err := command.receiver.APIClient.ServersApi.DeletePrivateNetwork(context.Background(), command.serverID, command.networkID).Execute()
+	server, httpResponse, err := command.receiver.APIClient.ServersAPI.DeletePrivateNetwork(context.Background(), command.serverID, command.networkID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
