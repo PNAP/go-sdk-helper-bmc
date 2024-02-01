@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v3"
 )
 
 // GetPublicNetworksCommand represents command that lists all public networks on the account
@@ -17,7 +17,7 @@ type GetPublicNetworksCommand struct {
 // Execute runs GetPublicNetworksCommand
 func (command *GetPublicNetworksCommand) Execute() ([]networkapiclient.PublicNetwork, error) {
 
-	networks, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksApi.PublicNetworksGet(context.Background()).Execute()
+	networks, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksAPI.PublicNetworksGet(context.Background()).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

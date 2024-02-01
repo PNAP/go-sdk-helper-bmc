@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // GetServersCommand represents command that pulls details about all servers
@@ -20,7 +20,7 @@ type GetServersCommand struct {
 // Execute pulls details about all servers
 func (command *GetServersCommand) Execute() ([]bmcapiclient.Server, error) {
 
-	servers, httpResponse, err := command.receiver.APIClient.ServersApi.ServersGet(context.Background()).Execute()
+	servers, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersGet(context.Background()).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

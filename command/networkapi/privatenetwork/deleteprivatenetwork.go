@@ -17,7 +17,7 @@ type DeletePrivateNetworkCommand struct {
 // Execute runs DeletePrivateNetworkCommand
 func (command *DeletePrivateNetworkCommand) Execute() error {
 
-	httpResponse, err := command.receiver.NetworkAPIClient.PrivateNetworksApi.PrivateNetworksNetworkIdDelete(context.Background(), command.networkID).Execute()
+	httpResponse, err := command.receiver.NetworkAPIClient.PrivateNetworksAPI.PrivateNetworksNetworkIdDelete(context.Background(), command.networkID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

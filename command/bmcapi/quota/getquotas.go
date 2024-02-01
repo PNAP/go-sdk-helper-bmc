@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // GetQuotasCommand represents command that lists all quotas for the account
@@ -20,7 +20,7 @@ type GetQuotasCommand struct {
 // Execute runs GetQuotasCommand
 func (command *GetQuotasCommand) Execute() ([]bmcapiclient.Quota, error) {
 
-	quota, httpResponse, err := command.receiver.APIClient.QuotasApi.QuotasGet(context.Background()).Execute()
+	quota, httpResponse, err := command.receiver.APIClient.QuotasAPI.QuotasGet(context.Background()).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

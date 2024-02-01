@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // PatchServerCommand represents command that updates specific server
@@ -20,7 +20,7 @@ type PatchServerCommand struct {
 // Execute updates specific server
 func (command *PatchServerCommand) Execute() (*bmcapiclient.Server, error) {
 
-	server, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdPatch(context.Background(), command.serverID).ServerPatch(command.serverPatch).Execute()
+	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPatch(context.Background(), command.serverID).ServerPatch(command.serverPatch).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

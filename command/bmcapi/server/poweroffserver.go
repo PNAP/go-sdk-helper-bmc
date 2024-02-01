@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // PowerOffServerCommand represents command that powers off specific server
@@ -21,7 +21,7 @@ type PowerOffServerCommand struct {
 // Execute powers off specific server
 func (command *PowerOffServerCommand) Execute() (*bmcapiclient.ActionResult, error) {
 
-	result, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdActionsPowerOffPost(context.Background(), command.serverID).Execute()
+	result, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdActionsPowerOffPost(context.Background(), command.serverID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // GetQuotaCommand represents command that retrieves a quota
@@ -21,7 +21,7 @@ type GetQuotaCommand struct {
 // Execute runs GetQuotaCommand
 func (command *GetQuotaCommand) Execute() (*bmcapiclient.Quota, error) {
 
-	quota, httpResponse, err := command.receiver.APIClient.QuotasApi.QuotasQuotaIdGet(context.Background(), command.quotaID).Execute()
+	quota, httpResponse, err := command.receiver.APIClient.QuotasAPI.QuotasQuotaIdGet(context.Background(), command.quotaID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v2"
+	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v3"
 )
 
 // DeleteTagCommand represents command that deletes a specific tag belonging to the account
@@ -19,7 +19,7 @@ type DeleteTagCommand struct {
 // Execute runs DeleteTagCommand
 func (command *DeleteTagCommand) Execute() (*tagapiclient.DeleteResult, error) {
 
-	result, httpResponse, err := command.receiver.TagAPIClient.TagsApi.TagsTagIdDelete(context.Background(), command.tagID).Execute()
+	result, httpResponse, err := command.receiver.TagAPIClient.TagsAPI.TagsTagIdDelete(context.Background(), command.tagID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

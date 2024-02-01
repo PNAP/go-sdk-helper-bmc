@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // AddIpBlockCommand represents command that adds an IP Block to specific server
@@ -20,7 +20,7 @@ type AddIpBlockCommand struct {
 // Execute adds an IP Block to specific server
 func (command *AddIpBlockCommand) Execute() (*bmcapiclient.ServerIpBlock, error) {
 
-	ipBlock, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdIpBlocksPost(context.Background(), command.serverID).ServerIpBlock(command.serverIpBlock).Execute()
+	ipBlock, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdIpBlocksPost(context.Background(), command.serverID).ServerIpBlock(command.serverIpBlock).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

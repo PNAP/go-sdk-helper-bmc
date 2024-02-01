@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // UpdateServerPublicNetworkCommand represents command that updates public network ip adresses on specific server
@@ -26,7 +26,8 @@ func (command *UpdateServerPublicNetworkCommand) Execute() (*bmcapiclient.Server
 
 	force := command.query.Force
 
-	server, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdPublicNetworksPatch(context.Background(), command.serverID, command.publicNetworkID).Force(force).ServerNetworkUpdate(command.serverNetworkUpdate).Execute()
+	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPublicNetworksPatch(context.Background(), command.serverID, command.publicNetworkID).
+		Force(force).ServerNetworkUpdate(command.serverNetworkUpdate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
@@ -37,7 +38,8 @@ func (command *UpdateServerPublicNetworkCommand) Execute() (*bmcapiclient.Server
 }
 
 //NewUpdateServerPublicNetworkCommand constructs new commmand of this type
-func NewUpdateServerPublicNetworkCommand(receiver receiver.BMCSDK, serverID string, publicNetworkID string, serverNetworkUpdate bmcapiclient.ServerNetworkUpdate, query dto.Query) *UpdateServerPublicNetworkCommand {
+func NewUpdateServerPublicNetworkCommand(receiver receiver.BMCSDK, serverID string, publicNetworkID string, serverNetworkUpdate bmcapiclient.ServerNetworkUpdate,
+	query dto.Query) *UpdateServerPublicNetworkCommand {
 
 	return &UpdateServerPublicNetworkCommand{receiver, serverID, publicNetworkID, serverNetworkUpdate, query}
 }

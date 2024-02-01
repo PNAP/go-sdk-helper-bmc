@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // DeleteSshKeyCommand represents command that deletes specific ssh key from the account
@@ -21,7 +21,7 @@ type DeleteSshKeyCommand struct {
 // Execute runs DeleteSshKeyCommand
 func (command *DeleteSshKeyCommand) Execute() (*bmcapiclient.DeleteSshKeyResult, error) {
 
-	result, httpResponse, err := command.receiver.APIClient.SSHKeysApi.SshKeysSshKeyIdDelete(context.Background(), command.sshKeyID).Execute()
+	result, httpResponse, err := command.receiver.APIClient.SSHKeysAPI.SshKeysSshKeyIdDelete(context.Background(), command.sshKeyID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

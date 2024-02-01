@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v2"
+	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v3"
 )
 
 // GetClusterCommand represents command that retrieves a cluster
@@ -21,7 +21,7 @@ type GetClusterCommand struct {
 // Execute runs GetClusterCommand
 func (command *GetClusterCommand) Execute() (*rancherapiclient.Cluster, error) {
 
-	cluster, httpResponse, err := command.receiver.RancherAPIClient.ClustersApi.ClustersIdGet(context.Background(), command.clusterID).Execute()
+	cluster, httpResponse, err := command.receiver.RancherAPIClient.ClustersAPI.ClustersIdGet(context.Background(), command.clusterID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

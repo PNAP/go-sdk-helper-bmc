@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"time"
 
-	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi"
+	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v2"
 )
 
 //Query represents query parameters used in various API calls
@@ -14,6 +15,14 @@ type Query struct {
 	Force           bool                                  `json:"force"`
 	Location        locationapiclient.LocationEnum        `json:"location"`
 	ProductCategory locationapiclient.ProductCategoryEnum `json:"productCategory"`
+	Number          string                                `json:"number"`
+	Status          string                                `json:"status"`
+	SentOnFrom      time.Time                             `json:"sentOnFrom"`
+	SentOnTo        time.Time                             `json:"sentOnTo"`
+	Limit           int32                                 `json:"limit,omitempty"`
+	Offset          int32                                 `json:"offset"`
+	SortField       string                                `json:"sortField"`
+	SortDirection   string                                `json:"sortDirection"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader

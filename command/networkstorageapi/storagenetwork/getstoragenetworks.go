@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi"
+	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v2"
 )
 
 // GetStorageNetworksCommand represents command that lists all storage networks on the account
@@ -17,7 +17,7 @@ type GetStorageNetworksCommand struct {
 // Execute runs GetStorageNetworksCommand
 func (command *GetStorageNetworksCommand) Execute() ([]networkstorageapiclient.StorageNetwork, error) {
 
-	storageNetworks, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksApi.StorageNetworksGet(context.Background()).Execute()
+	storageNetworks, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksGet(context.Background()).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

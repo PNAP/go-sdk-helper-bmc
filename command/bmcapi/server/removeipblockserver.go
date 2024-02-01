@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // RemoveIpBlockCommand represents command that removes IP Block from specific server
@@ -21,7 +21,8 @@ type RemoveIpBlockCommand struct {
 // Execute updates specific server
 func (command *RemoveIpBlockCommand) Execute() (*string, error) {
 
-	response, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdIpBlocksIpBlockIdDelete(context.Background(), command.serverID, command.ipBlockID).RelinquishIpBlock(command.relinquishIpBlock).Execute()
+	response, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdIpBlocksIpBlockIdDelete(context.Background(), command.serverID, command.ipBlockID).
+		RelinquishIpBlock(command.relinquishIpBlock).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

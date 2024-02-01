@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v2"
+	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v3"
 )
 
 // PutTagsIpBlockCommand represents command that overwrites tags assigned for specific IP Block belonging to the account
@@ -21,7 +21,7 @@ type PutTagsIpBlockCommand struct {
 // Execute runs PutTagsIpBlockCommand
 func (command *PutTagsIpBlockCommand) Execute() (*ipapiclient.IpBlock, error) {
 
-	ipBlock, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksApi.IpBlocksIpBlockIdTagsPut(context.Background(), command.ipBlockID).TagAssignmentRequest(command.tagAssignmentRequest).Execute()
+	ipBlock, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksAPI.IpBlocksIpBlockIdTagsPut(context.Background(), command.ipBlockID).TagAssignmentRequest(command.tagAssignmentRequest).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v2"
+	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v3"
 )
 
 // GetIpBlockCommand represents command that retrieves a specific IP Block belonging to the account
@@ -19,7 +19,7 @@ type GetIpBlockCommand struct {
 // Execute runs GetIpBlockCommand
 func (command *GetIpBlockCommand) Execute() (*ipapiclient.IpBlock, error) {
 
-	tag, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksApi.IpBlocksIpBlockIdGet(context.Background(), command.ipBlockID).Execute()
+	tag, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksAPI.IpBlocksIpBlockIdGet(context.Background(), command.ipBlockID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

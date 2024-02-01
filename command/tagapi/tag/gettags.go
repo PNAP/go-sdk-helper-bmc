@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v2"
+	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v3"
 )
 
 // GetTagsCommand represents command that retrieves all tags beloging to the account
@@ -18,7 +18,7 @@ type GetTagsCommand struct {
 // Execute runs GetTagsCommand
 func (command *GetTagsCommand) Execute() ([]tagapiclient.Tag, error) {
 
-	tags, httpResponse, err := command.receiver.TagAPIClient.TagsApi.TagsGet(context.Background()).Execute()
+	tags, httpResponse, err := command.receiver.TagAPIClient.TagsAPI.TagsGet(context.Background()).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

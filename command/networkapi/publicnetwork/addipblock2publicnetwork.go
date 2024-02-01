@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v3"
 )
 
 // AddIpBlock2PublicNetworkCommand represents command that adds an IP Block to specific public network
@@ -20,7 +20,7 @@ type AddIpBlock2PublicNetworkCommand struct {
 // Execute runs AddIpBlock2PublicNetworkCommand
 func (command *AddIpBlock2PublicNetworkCommand) Execute() (*networkapiclient.PublicNetworkIpBlock, error) {
 
-	ipBlock, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksApi.PublicNetworksNetworkIdIpBlocksPost(context.Background(), command.networkID).PublicNetworkIpBlock(command.publicNetworkIpBlock).Execute()
+	ipBlock, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksAPI.PublicNetworksNetworkIdIpBlocksPost(context.Background(), command.networkID).PublicNetworkIpBlock(command.publicNetworkIpBlock).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

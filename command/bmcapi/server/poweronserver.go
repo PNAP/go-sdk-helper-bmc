@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // PowerOnServerCommand represents command that powers on specific server
@@ -21,7 +21,7 @@ type PowerOnServerCommand struct {
 // Execute powers on specific server
 func (command *PowerOnServerCommand) Execute() (*bmcapiclient.ActionResult, error) {
 
-	result, httpResponse, err := command.receiver.APIClient.ServersApi.ServersServerIdActionsPowerOnPost(context.Background(), command.serverID).Execute()
+	result, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdActionsPowerOnPost(context.Background(), command.serverID).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

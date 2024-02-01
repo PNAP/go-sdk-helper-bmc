@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v2"
+	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 )
 
 // RequestEditQuotaLimitCommand represents command that sends a request to edit the limit of a quota
@@ -22,7 +22,7 @@ type RequestEditQuotaLimitCommand struct {
 // Execute runs RequestEditQuotaLimitCommand
 func (command *RequestEditQuotaLimitCommand) Execute() error {
 
-	httpResponse, err := command.receiver.APIClient.QuotasApi.QuotasQuotaIdActionsRequestEditPost(context.Background(), command.quotaID).QuotaEditLimitRequest(command.quotaEditLimitRequest).Execute()
+	httpResponse, err := command.receiver.APIClient.QuotasAPI.QuotasQuotaIdActionsRequestEditPost(context.Background(), command.quotaID).QuotaEditLimitRequest(command.quotaEditLimitRequest).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

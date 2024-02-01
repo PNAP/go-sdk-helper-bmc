@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v2"
+	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v3"
 )
 
 // PatchIpBlockCommand represents command that updates the details of a specific IP Block belonging to the account
@@ -20,7 +20,7 @@ type PatchIpBlockCommand struct {
 // Execute runs PatchIpBlockCommand
 func (command *PatchIpBlockCommand) Execute() (*ipapiclient.IpBlock, error) {
 
-	ipBlock, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksApi.IpBlocksIpBlockIdPatch(context.Background(), command.ipBlockID).IpBlockPatch(command.ipBlockPatch).Execute()
+	ipBlock, httpResponse, err := command.receiver.IpBlockAPIClient.IPBlocksAPI.IpBlocksIpBlockIdPatch(context.Background(), command.ipBlockID).IpBlockPatch(command.ipBlockPatch).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

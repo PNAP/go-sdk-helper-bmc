@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v2"
+	tagapiclient "github.com/phoenixnap/go-sdk-bmc/tagapi/v3"
 )
 
 // UpdateTagCommand represents command that updates a specific tag for the account
@@ -20,7 +20,7 @@ type UpdateTagCommand struct {
 // Execute runs UpdateTagCommand
 func (command *UpdateTagCommand) Execute() (*tagapiclient.Tag, error) {
 
-	tag, httpResponse, err := command.receiver.TagAPIClient.TagsApi.TagsTagIdPatch(context.Background(), command.tagID).TagUpdate(command.tagUpdate).Execute()
+	tag, httpResponse, err := command.receiver.TagAPIClient.TagsAPI.TagsTagIdPatch(context.Background(), command.tagID).TagUpdate(command.tagUpdate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v3"
 )
 
 // UpdatePublicNetworkCommand represents command that updates public network on the server
@@ -19,7 +19,7 @@ type UpdatePublicNetworkCommand struct {
 // Execute runs UpdatePublicNetworkCommand
 func (command *UpdatePublicNetworkCommand) Execute() (*networkapiclient.PublicNetwork, error) {
 
-	network, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksApi.PublicNetworksNetworkIdPatch(context.Background(), command.networkID).PublicNetworkModify(command.publicNetworkModify).Execute()
+	network, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksAPI.PublicNetworksNetworkIdPatch(context.Background(), command.networkID).PublicNetworkModify(command.publicNetworkModify).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

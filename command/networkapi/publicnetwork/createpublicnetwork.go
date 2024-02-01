@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v2"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v3"
 )
 
 // CreatePublicNetworkCommand represents command that creates new public network
@@ -18,7 +18,7 @@ type CreatePublicNetworkCommand struct {
 // Execute runs CreatePublicNetworkCommand
 func (command *CreatePublicNetworkCommand) Execute() (*networkapiclient.PublicNetwork, error) {
 
-	network, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksApi.PublicNetworksPost(context.Background()).PublicNetworkCreate(command.publicNetworkCreate).Execute()
+	network, httpResponse, err := command.receiver.NetworkAPIClient.PublicNetworksAPI.PublicNetworksPost(context.Background()).PublicNetworkCreate(command.publicNetworkCreate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

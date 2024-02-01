@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v2"
+	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v3"
 )
 
 // GetClustersCommand represents command that lists all clusters for the account
@@ -20,7 +20,7 @@ type GetClustersCommand struct {
 // Execute runs GetClustersCommand
 func (command *GetClustersCommand) Execute() ([]rancherapiclient.Cluster, error) {
 
-	clusters, httpResponse, err := command.receiver.RancherAPIClient.ClustersApi.ClustersGet(context.Background()).Execute()
+	clusters, httpResponse, err := command.receiver.RancherAPIClient.ClustersAPI.ClustersGet(context.Background()).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
