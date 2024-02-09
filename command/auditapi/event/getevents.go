@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi/v2"
+	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi/v3"
 )
 
 // GetEventsCommand represents command that retrieves event logs
@@ -18,7 +18,7 @@ type GetEventsCommand struct {
 // Execute runs GetEventsCommand
 func (command *GetEventsCommand) Execute() ([]auditapiclient.Event, error) {
 
-	events, httpResponse, err := command.receiver.AuditAPIClient.EventsApi.EventsGet(context.Background()).Execute()
+	events, httpResponse, err := command.receiver.AuditAPIClient.EventsAPI.EventsGet(context.Background()).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

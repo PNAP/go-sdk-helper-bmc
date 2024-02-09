@@ -11,7 +11,7 @@ import (
 	"net/http"
 
 	"github.com/mitchellh/go-homedir"
-	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi/v2"
+	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi/v3"
 	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v2"
 	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 	invoicingapiclient "github.com/phoenixnap/go-sdk-bmc/invoicingapi"
