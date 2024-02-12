@@ -27,8 +27,30 @@ func (command *GetInvoicesCommand) Execute() (*invoicingapiclient.PaginatedInvoi
 	sortField := command.query.SortField
 	sortDirection := command.query.SortDirection
 
-	invoices, httpResponse, err := command.receiver.InvoicingAPIClient.InvoicesAPI.InvoicesGet(context.Background()).Number(number).Status(status).SentOnFrom(sentOnFrom).
-		SentOnTo(sentOnTo).Limit(limit).Offset(offset).SortField(sortField).SortDirection(sortDirection).Execute()
+	x1 := command.receiver.InvoicingAPIClient.InvoicesAPI.InvoicesGet(context.Background())
+	if number != "" {
+		x1 = x1.Number(number)
+	}
+	if status != "" {
+		x1 = x1.Status(status)
+	}
+	if !sentOnFrom.IsZero() {
+		x1 = x1.SentOnFrom(sentOnFrom)
+	}
+	if !sentOnTo.IsZero() {
+		x1 = x1.SentOnTo(sentOnTo)
+	}
+	if limit != 0 {
+		x1 = x1.Limit(limit)
+	}
+	if sortField != "" {
+		x1 = x1.SortField(sortField)
+	}
+	if sortDirection != "" {
+		x1 = x1.SortDirection(sortDirection)
+	}
+
+	invoices, httpResponse, err := x1.Offset(offset).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
