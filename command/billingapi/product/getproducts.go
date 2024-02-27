@@ -22,8 +22,22 @@ func (command *GetProductsCommand) Execute() ([]dto.Product, error) {
 	skuCode := command.productQuery.SKUCode
 	location := command.productQuery.Location
 
-	_, httpResponse, err := command.receiver.BillingAPIClient.ProductsAPI.ProductsGet(context.Background()).ProductCode(productCode).ProductCategory(productCategory).
-		SkuCode(skuCode).Location(location).Execute()
+	x1 := command.receiver.BillingAPIClient.ProductsAPI.ProductsGet(context.Background())
+
+	if productCode != "" {
+		x1 = x1.ProductCode(productCode)
+	}
+	if productCategory != "" {
+		x1 = x1.ProductCategory(productCategory)
+	}
+	if skuCode != "" {
+		x1 = x1.SkuCode(skuCode)
+	}
+	if location != "" {
+		x1 = x1.Location(location)
+	}
+
+	_, httpResponse, err := x1.Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

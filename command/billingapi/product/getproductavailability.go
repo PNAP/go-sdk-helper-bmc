@@ -32,8 +32,25 @@ func (command *GetProductAvailabilityCommand) Execute() ([]dto.ProductAvailabili
 	solution := command.productAvailabilityQuery.Solution
 	minQuantity := command.productAvailabilityQuery.MinQuantity
 
-	_, httpResponse, err := command.receiver.BillingAPIClient.ProductsAPI.ProductAvailabilityGet(context.Background()).ProductCategory(productCategory).ProductCode(productCode).
-		ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Location(location).Solution(solution).MinQuantity(minQuantity).Execute()
+	x1 := command.receiver.BillingAPIClient.ProductsAPI.ProductAvailabilityGet(context.Background())
+
+	if productCategory != nil {
+		x1 = x1.ProductCategory(productCategory)
+	}
+	if productCode != nil {
+		x1 = x1.ProductCode(productCode)
+	}
+	if location != nil {
+		x1 = x1.Location(location)
+	}
+	if solution != nil {
+		x1 = x1.Solution(solution)
+	}
+	if minQuantity != 0 {
+		x1 = x1.MinQuantity(minQuantity)
+	}
+
+	_, httpResponse, err := x1.ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
