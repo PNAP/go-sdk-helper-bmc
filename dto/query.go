@@ -23,6 +23,12 @@ type Query struct {
 	Offset          int32                                 `json:"offset"`
 	SortField       string                                `json:"sortField"`
 	SortDirection   string                                `json:"sortDirection"`
+	From            time.Time                             `json:"from"`
+	To              time.Time                             `json:"to"`
+	Order           string                                `json:"order"`
+	Username        string                                `json:"username"`
+	Verb            string                                `json:"verb"`
+	Uri             string                                `json:"uri"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader

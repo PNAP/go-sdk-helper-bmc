@@ -15,6 +15,7 @@ require (
 	github.com/phoenixnap/go-sdk-bmc/locationapi/v2 v2.0.1
 	github.com/phoenixnap/go-sdk-bmc/networkapi/v3 v3.0.1
 	github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v2 v2.0.1
+	github.com/phoenixnap/go-sdk-bmc/paymentsapi v1.0.1
 	github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v3 v3.0.1
 	github.com/phoenixnap/go-sdk-bmc/tagapi/v3 v3.0.1
 	github.com/spf13/viper v1.6.2

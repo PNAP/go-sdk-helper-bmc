@@ -9,14 +9,14 @@ import (
 	invoicingapiclient "github.com/phoenixnap/go-sdk-bmc/invoicingapi"
 )
 
-// GetInvoicesCommand represents command that retrieves invoices for the account.
+// GetInvoicesCommand represents command that retrieves a paginated list of invoices for the account.
 // Use NewGetInvoicesCommand to initialize command properly.
 type GetInvoicesCommand struct {
 	receiver receiver.BMCSDK
 	query    dto.Query
 }
 
-// Execute retrieves invoices for the account.
+// Execute retrieves a paginated list of invoices for the account.
 func (command *GetInvoicesCommand) Execute() (*invoicingapiclient.PaginatedInvoices, error) {
 	number := command.query.Number
 	status := command.query.Status
