@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v2"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
 )
 
 // GetReservationsCommand represents command that retrieves all reservations for the account.

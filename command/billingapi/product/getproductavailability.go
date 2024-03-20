@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	"github.com/phoenixnap/go-sdk-bmc/billingapi/v2"
+	"github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
 )
 
 // GetProductAvailabilityCommand represents command that retrieves product availabilities for the account.
@@ -32,7 +32,7 @@ func (command *GetProductAvailabilityCommand) Execute() ([]dto.ProductAvailabili
 	solution := command.productAvailabilityQuery.Solution
 	minQuantity := command.productAvailabilityQuery.MinQuantity
 
-	x1 := command.receiver.BillingAPIClient.ProductsAPI.ProductAvailabilityGet(context.Background())
+	x1 := command.receiver.BillingAPIClient.ProductAvailabilityAPI.ProductAvailabilityGet(context.Background())
 
 	if productCategory != nil {
 		x1 = x1.ProductCategory(productCategory)

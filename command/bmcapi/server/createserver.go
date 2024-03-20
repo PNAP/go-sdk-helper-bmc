@@ -16,15 +16,12 @@ import (
 type CreateServerCommand struct {
 	receiver     receiver.BMCSDK
 	serverCreate bmcapiclient.ServerCreate
-	query        dto.Query
 }
 
 // Execute runs CreateServerCommand
 func (command *CreateServerCommand) Execute() (*bmcapiclient.Server, error) {
 
-	force := command.query.Force
-
-	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).Force(force).ServerCreate(command.serverCreate).Execute()
+	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).ServerCreate(command.serverCreate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
@@ -35,7 +32,7 @@ func (command *CreateServerCommand) Execute() (*bmcapiclient.Server, error) {
 }
 
 //NewCreateServerCommand constructs new commmand of this type
-func NewCreateServerCommand(receiver receiver.BMCSDK, serverCreate bmcapiclient.ServerCreate, query dto.Query) *CreateServerCommand {
+func NewCreateServerCommand(receiver receiver.BMCSDK, serverCreate bmcapiclient.ServerCreate) *CreateServerCommand {
 
-	return &CreateServerCommand{receiver, serverCreate, query}
+	return &CreateServerCommand{receiver, serverCreate}
 }

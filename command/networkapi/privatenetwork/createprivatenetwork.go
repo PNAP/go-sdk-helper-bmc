@@ -13,15 +13,12 @@ import (
 type CreatePrivateNetworkCommand struct {
 	receiver             receiver.BMCSDK
 	privateNetworkCreate networkapiclient.PrivateNetworkCreate
-	query                dto.Query
 }
 
 // Execute runs CreatePrivateNetworkCommand
 func (command *CreatePrivateNetworkCommand) Execute() (*networkapiclient.PrivateNetwork, error) {
 
-	force := command.query.Force
-
-	privateNetwork, httpResponse, err := command.receiver.NetworkAPIClient.PrivateNetworksAPI.PrivateNetworksPost(context.Background()).Force(force).PrivateNetworkCreate(command.privateNetworkCreate).Execute()
+	privateNetwork, httpResponse, err := command.receiver.NetworkAPIClient.PrivateNetworksAPI.PrivateNetworksPost(context.Background()).PrivateNetworkCreate(command.privateNetworkCreate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
@@ -32,7 +29,7 @@ func (command *CreatePrivateNetworkCommand) Execute() (*networkapiclient.Private
 }
 
 //NewCreatePrivateNetworkCommand constructs new commmand of this type
-func NewCreatePrivateNetworkCommand(receiver receiver.BMCSDK, privateNetworkCreate networkapiclient.PrivateNetworkCreate, query dto.Query) *CreatePrivateNetworkCommand {
+func NewCreatePrivateNetworkCommand(receiver receiver.BMCSDK, privateNetworkCreate networkapiclient.PrivateNetworkCreate) *CreatePrivateNetworkCommand {
 
-	return &CreatePrivateNetworkCommand{receiver, privateNetworkCreate, query}
+	return &CreatePrivateNetworkCommand{receiver, privateNetworkCreate}
 }
