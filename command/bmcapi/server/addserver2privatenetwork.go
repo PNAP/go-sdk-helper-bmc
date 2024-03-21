@@ -17,24 +17,49 @@ type AddServer2PrivateNetworkCommand struct {
 	receiver             receiver.BMCSDK
 	serverID             string
 	serverPrivateNetwork bmcapiclient.ServerPrivateNetwork
+	query                *dto.Query
 }
 
 // Execute runs AddServer2PrivateNetworkCommand
 func (command *AddServer2PrivateNetworkCommand) Execute() (*bmcapiclient.ServerPrivateNetwork, error) {
 
-	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPrivateNetworksPost(context.Background(), command.serverID).
-		ServerPrivateNetwork(command.serverPrivateNetwork).Execute()
+	if command.query != nil {
 
-	errResolver := dto.NewErrorResolver(httpResponse, err)
+		force := command.query.Force
 
-	if errResolver.Error == nil {
-		return server, nil
+		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPrivateNetworksPost(context.Background(), command.serverID).Force(force).
+			ServerPrivateNetwork(command.serverPrivateNetwork).Execute()
+
+		errResolver := dto.NewErrorResolver(httpResponse, err)
+
+		if errResolver.Error == nil {
+			return server, nil
+		}
+		return nil, fmt.Errorf("AddServer2PrivateNetworkCommand %s", errResolver.Error)
+
+	} else {
+
+		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPrivateNetworksPost(context.Background(), command.serverID).
+			ServerPrivateNetwork(command.serverPrivateNetwork).Execute()
+
+		errResolver := dto.NewErrorResolver(httpResponse, err)
+
+		if errResolver.Error == nil {
+			return server, nil
+		}
+		return nil, fmt.Errorf("AddServer2PrivateNetworkCommand %s", errResolver.Error)
+
 	}
-	return nil, fmt.Errorf("AddServer2PrivateNetworkCommand %s", errResolver.Error)
 }
 
 //NewAddServer2PrivateNetworkCommand constructs new commmand of this type
 func NewAddServer2PrivateNetworkCommand(receiver receiver.BMCSDK, serverID string, serverPrivateNetwork bmcapiclient.ServerPrivateNetwork) *AddServer2PrivateNetworkCommand {
 
-	return &AddServer2PrivateNetworkCommand{receiver, serverID, serverPrivateNetwork}
+	return &AddServer2PrivateNetworkCommand{receiver, serverID, serverPrivateNetwork, nil}
+}
+
+//NewAddServer2PrivateNetworkCommandWithQuery constructs new commmand of this type
+func NewAddServer2PrivateNetworkCommandWithQuery(receiver receiver.BMCSDK, serverID string, serverPrivateNetwork bmcapiclient.ServerPrivateNetwork, query *dto.Query) *AddServer2PrivateNetworkCommand {
+
+	return &AddServer2PrivateNetworkCommand{receiver, serverID, serverPrivateNetwork, query}
 }

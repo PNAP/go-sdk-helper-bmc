@@ -16,23 +16,47 @@ import (
 type CreateServerCommand struct {
 	receiver     receiver.BMCSDK
 	serverCreate bmcapiclient.ServerCreate
+	query        *dto.Query
 }
 
 // Execute runs CreateServerCommand
 func (command *CreateServerCommand) Execute() (*bmcapiclient.Server, error) {
 
-	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).ServerCreate(command.serverCreate).Execute()
+	if command.query != nil {
 
-	errResolver := dto.NewErrorResolver(httpResponse, err)
+		force := command.query.Force
 
-	if errResolver.Error == nil {
-		return server, nil
+		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).Force(force).ServerCreate(command.serverCreate).Execute()
+
+		errResolver := dto.NewErrorResolver(httpResponse, err)
+
+		if errResolver.Error == nil {
+			return server, nil
+		}
+		return nil, fmt.Errorf("CreateServerWithQueryCommand %s", errResolver.Error)
+
+	} else {
+
+		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).ServerCreate(command.serverCreate).Execute()
+
+		errResolver := dto.NewErrorResolver(httpResponse, err)
+
+		if errResolver.Error == nil {
+			return server, nil
+		}
+		return nil, fmt.Errorf("CreateServerCommand %s", errResolver.Error)
+
 	}
-	return nil, fmt.Errorf("CreateServerCommand %s", errResolver.Error)
 }
 
 //NewCreateServerCommand constructs new commmand of this type
 func NewCreateServerCommand(receiver receiver.BMCSDK, serverCreate bmcapiclient.ServerCreate) *CreateServerCommand {
 
-	return &CreateServerCommand{receiver, serverCreate}
+	return &CreateServerCommand{receiver, serverCreate, nil}
+}
+
+//NewCreateServerCommandWithQuery constructs new commmand of this type
+func NewCreateServerCommandWithQuery(receiver receiver.BMCSDK, serverCreate bmcapiclient.ServerCreate, query *dto.Query) *CreateServerCommand {
+
+	return &CreateServerCommand{receiver, serverCreate, query}
 }
