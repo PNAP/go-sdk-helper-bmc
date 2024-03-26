@@ -20,7 +20,8 @@ type UpdateStorageNetworkVolumeCommand struct {
 // Execute runs UpdateStorageNetworkVolumeCommand
 func (command *UpdateStorageNetworkVolumeCommand) Execute() (*networkstorageapiclient.Volume, error) {
 
-	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(context.Background(), command.storageNetworkId, command.volumeId).VolumeUpdate(command.volumeUpdate).Execute()
+	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdPatch(context.Background(),
+		command.storageNetworkId, command.volumeId).VolumeUpdate(command.volumeUpdate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

@@ -2,10 +2,10 @@ package server
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 
-	//"net/http"
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
@@ -23,33 +23,28 @@ type AddServer2PrivateNetworkCommand struct {
 // Execute runs AddServer2PrivateNetworkCommand
 func (command *AddServer2PrivateNetworkCommand) Execute() (*bmcapiclient.ServerPrivateNetwork, error) {
 
+	var server *bmcapiclient.ServerPrivateNetwork
+	var httpResponse *http.Response
+	var err error
+
 	if command.query != nil {
 
 		force := command.query.Force
 
-		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPrivateNetworksPost(context.Background(), command.serverID).Force(force).
+		server, httpResponse, err = command.receiver.APIClient.ServersAPI.ServersServerIdPrivateNetworksPost(context.Background(), command.serverID).Force(force).
 			ServerPrivateNetwork(command.serverPrivateNetwork).Execute()
-
-		errResolver := dto.NewErrorResolver(httpResponse, err)
-
-		if errResolver.Error == nil {
-			return server, nil
-		}
-		return nil, fmt.Errorf("AddServer2PrivateNetworkCommand %s", errResolver.Error)
-
 	} else {
 
-		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPrivateNetworksPost(context.Background(), command.serverID).
+		server, httpResponse, err = command.receiver.APIClient.ServersAPI.ServersServerIdPrivateNetworksPost(context.Background(), command.serverID).
 			ServerPrivateNetwork(command.serverPrivateNetwork).Execute()
-
-		errResolver := dto.NewErrorResolver(httpResponse, err)
-
-		if errResolver.Error == nil {
-			return server, nil
-		}
-		return nil, fmt.Errorf("AddServer2PrivateNetworkCommand %s", errResolver.Error)
-
 	}
+
+	errResolver := dto.NewErrorResolver(httpResponse, err)
+
+	if errResolver.Error == nil {
+		return server, nil
+	}
+	return nil, fmt.Errorf("AddServer2PrivateNetworkCommand %s", errResolver.Error)
 }
 
 //NewAddServer2PrivateNetworkCommand constructs new commmand of this type

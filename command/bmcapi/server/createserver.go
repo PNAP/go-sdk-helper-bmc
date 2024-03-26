@@ -2,10 +2,10 @@ package server
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 
-	//"net/http"
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
@@ -22,31 +22,26 @@ type CreateServerCommand struct {
 // Execute runs CreateServerCommand
 func (command *CreateServerCommand) Execute() (*bmcapiclient.Server, error) {
 
+	var server *bmcapiclient.Server
+	var httpResponse *http.Response
+	var err error
+
 	if command.query != nil {
 
 		force := command.query.Force
 
-		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).Force(force).ServerCreate(command.serverCreate).Execute()
-
-		errResolver := dto.NewErrorResolver(httpResponse, err)
-
-		if errResolver.Error == nil {
-			return server, nil
-		}
-		return nil, fmt.Errorf("CreateServerWithQueryCommand %s", errResolver.Error)
-
+		server, httpResponse, err = command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).Force(force).ServerCreate(command.serverCreate).Execute()
 	} else {
 
-		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).ServerCreate(command.serverCreate).Execute()
-
-		errResolver := dto.NewErrorResolver(httpResponse, err)
-
-		if errResolver.Error == nil {
-			return server, nil
-		}
-		return nil, fmt.Errorf("CreateServerCommand %s", errResolver.Error)
-
+		server, httpResponse, err = command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).ServerCreate(command.serverCreate).Execute()
 	}
+
+	errResolver := dto.NewErrorResolver(httpResponse, err)
+
+	if errResolver.Error == nil {
+		return server, nil
+	}
+	return nil, fmt.Errorf("CreateServerCommand %s", errResolver.Error)
 }
 
 //NewCreateServerCommand constructs new commmand of this type

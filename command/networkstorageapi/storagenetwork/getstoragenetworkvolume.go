@@ -19,7 +19,8 @@ type GetStorageNetworkVolumeCommand struct {
 // Execute runs GetStorageNetworkVolumeCommand
 func (command *GetStorageNetworkVolumeCommand) Execute() (*networkstorageapiclient.Volume, error) {
 
-	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdGet(context.Background(), command.storageNetworkId, command.volumeId).Execute()
+	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdGet(context.Background(),
+		command.storageNetworkId, command.volumeId).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

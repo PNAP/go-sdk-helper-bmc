@@ -20,7 +20,8 @@ type PutTagsStorageNetworkVolumeCommand struct {
 // Execute runs PutTagsStorageNetworkVolumeCommand
 func (command *PutTagsStorageNetworkVolumeCommand) Execute() (*networkstorageapiclient.Volume, error) {
 
-	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(context.Background(), command.storageNetworkId, command.volumeId).TagAssignmentRequest(command.tagAssignmentRequest).Execute()
+	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdTagsPut(context.Background(),
+		command.storageNetworkId, command.volumeId).TagAssignmentRequest(command.tagAssignmentRequest).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
@@ -31,7 +32,8 @@ func (command *PutTagsStorageNetworkVolumeCommand) Execute() (*networkstorageapi
 }
 
 //NewPutTagsStorageNetworkVolumeCommand constructs new commmand of this type
-func NewPutTagsStorageNetworkVolumeCommand(receiver receiver.BMCSDK, storageNetworkId string, volumeId string, tagAssignmentRequest []networkstorageapiclient.TagAssignmentRequest) *PutTagsStorageNetworkVolumeCommand {
+func NewPutTagsStorageNetworkVolumeCommand(receiver receiver.BMCSDK, storageNetworkId string, volumeId string, tagAssignmentRequest []networkstorageapiclient.
+	TagAssignmentRequest) *PutTagsStorageNetworkVolumeCommand {
 
 	return &PutTagsStorageNetworkVolumeCommand{receiver, storageNetworkId, volumeId, tagAssignmentRequest}
 }

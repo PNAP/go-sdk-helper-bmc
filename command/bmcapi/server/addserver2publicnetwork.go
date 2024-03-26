@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"net/http"
 
 	"context"
 
@@ -21,33 +22,28 @@ type AddServer2PublicNetworkCommand struct {
 // Execute runs AddServer2PublicNetworkCommand
 func (command *AddServer2PublicNetworkCommand) Execute() (*bmcapiclient.ServerPublicNetwork, error) {
 
+	var server *bmcapiclient.ServerPublicNetwork
+	var httpResponse *http.Response
+	var err error
+
 	if command.query != nil {
 
 		force := command.query.Force
 
-		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPublicNetworksPost(context.Background(), command.serverID).Force(force).
+		server, httpResponse, err = command.receiver.APIClient.ServersAPI.ServersServerIdPublicNetworksPost(context.Background(), command.serverID).Force(force).
 			ServerPublicNetwork(command.serverPublicNetwork).Execute()
-
-		errResolver := dto.NewErrorResolver(httpResponse, err)
-
-		if errResolver.Error == nil {
-			return server, nil
-		}
-		return nil, fmt.Errorf("AddServer2PublicNetworkWithQueryCommand %s", errResolver.Error)
-
 	} else {
 
-		server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdPublicNetworksPost(context.Background(), command.serverID).
+		server, httpResponse, err = command.receiver.APIClient.ServersAPI.ServersServerIdPublicNetworksPost(context.Background(), command.serverID).
 			ServerPublicNetwork(command.serverPublicNetwork).Execute()
-
-		errResolver := dto.NewErrorResolver(httpResponse, err)
-
-		if errResolver.Error == nil {
-			return server, nil
-		}
-		return nil, fmt.Errorf("AddServer2PublicNetworkCommand %s", errResolver.Error)
-
 	}
+
+	errResolver := dto.NewErrorResolver(httpResponse, err)
+
+	if errResolver.Error == nil {
+		return server, nil
+	}
+	return nil, fmt.Errorf("AddServer2PublicNetworkCommand %s", errResolver.Error)
 }
 
 //NewAddServer2PublicNetworkCommand constructs new commmand of this type

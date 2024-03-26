@@ -19,7 +19,8 @@ type UpdateStorageNetworkCommand struct {
 // Execute runs UpdateStorageNetworkCommand
 func (command *UpdateStorageNetworkCommand) Execute() (*networkstorageapiclient.StorageNetwork, error) {
 
-	storageNetwork, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksIdPatch(context.Background(), command.storageNetworkID).StorageNetworkUpdate(command.storageNetworkUpdate).Execute()
+	storageNetwork, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksIdPatch(context.Background(), command.storageNetworkID).
+		StorageNetworkUpdate(command.storageNetworkUpdate).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
