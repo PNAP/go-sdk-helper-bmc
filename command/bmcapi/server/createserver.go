@@ -2,10 +2,10 @@ package server
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 
-	//"net/http"
 	"context"
 
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
@@ -16,15 +16,25 @@ import (
 type CreateServerCommand struct {
 	receiver     receiver.BMCSDK
 	serverCreate bmcapiclient.ServerCreate
-	query        dto.Query
+	query        *dto.Query
 }
 
 // Execute runs CreateServerCommand
 func (command *CreateServerCommand) Execute() (*bmcapiclient.Server, error) {
 
-	force := command.query.Force
+	var server *bmcapiclient.Server
+	var httpResponse *http.Response
+	var err error
 
-	server, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).Force(force).ServerCreate(command.serverCreate).Execute()
+	if command.query != nil {
+
+		force := command.query.Force
+
+		server, httpResponse, err = command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).Force(force).ServerCreate(command.serverCreate).Execute()
+	} else {
+
+		server, httpResponse, err = command.receiver.APIClient.ServersAPI.ServersPost(context.Background()).ServerCreate(command.serverCreate).Execute()
+	}
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
@@ -35,7 +45,13 @@ func (command *CreateServerCommand) Execute() (*bmcapiclient.Server, error) {
 }
 
 //NewCreateServerCommand constructs new commmand of this type
-func NewCreateServerCommand(receiver receiver.BMCSDK, serverCreate bmcapiclient.ServerCreate, query dto.Query) *CreateServerCommand {
+func NewCreateServerCommand(receiver receiver.BMCSDK, serverCreate bmcapiclient.ServerCreate) *CreateServerCommand {
+
+	return &CreateServerCommand{receiver, serverCreate, nil}
+}
+
+//NewCreateServerCommandWithQuery constructs new commmand of this type
+func NewCreateServerCommandWithQuery(receiver receiver.BMCSDK, serverCreate bmcapiclient.ServerCreate, query *dto.Query) *CreateServerCommand {
 
 	return &CreateServerCommand{receiver, serverCreate, query}
 }

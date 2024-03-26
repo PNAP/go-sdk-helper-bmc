@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v2"
+	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v3"
 )
 
 // GetLocationsCommand represents command that retrieves the locations info

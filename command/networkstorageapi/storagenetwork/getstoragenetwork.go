@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v2"
+	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v3"
 )
 
 // GetStorageNetworkCommand represents command that retrieves details about specific storage network on the account

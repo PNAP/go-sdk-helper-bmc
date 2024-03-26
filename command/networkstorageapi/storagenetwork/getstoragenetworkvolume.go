@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v2"
+	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v3"
 )
 
 // GetStorageNetworkVolumeCommand represents command that retrieves details about specific volume on a storage network on the account
@@ -19,7 +19,8 @@ type GetStorageNetworkVolumeCommand struct {
 // Execute runs GetStorageNetworkVolumeCommand
 func (command *GetStorageNetworkVolumeCommand) Execute() (*networkstorageapiclient.Volume, error) {
 
-	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdGet(context.Background(), command.storageNetworkId, command.volumeId).Execute()
+	volume, httpResponse, err := command.receiver.NetworkStorageAPIClient.StorageNetworksAPI.StorageNetworksStorageNetworkIdVolumesVolumeIdGet(context.Background(),
+		command.storageNetworkId, command.volumeId).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 

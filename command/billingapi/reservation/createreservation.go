@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v2"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
 )
 
 // CreateReservationCommand represents command that creates new package reservation for the account.
