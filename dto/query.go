@@ -13,6 +13,7 @@ import (
 //Query represents query parameters used in various API calls
 type Query struct {
 	Force           bool                                  `json:"force"`
+	LocationString  string                                `json:"locationString"`
 	Location        locationapiclient.LocationEnum        `json:"location"`
 	ProductCategory locationapiclient.ProductCategoryEnum `json:"productCategory"`
 	Number          string                                `json:"number"`
