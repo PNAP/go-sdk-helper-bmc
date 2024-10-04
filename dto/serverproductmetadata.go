@@ -9,13 +9,14 @@ import (
 
 //ServerProductMetadata represents details of the server product
 type ServerProductMetadata struct {
-	RamInGb      int32   `json:"ramInGb"`
-	CPU          string  `json:"cpu"`
-	CPUCount     int32   `json:"cpuCount"`
-	CoresPerCPU  int32   `json:"coresPerCpu"`
-	CPUFrequency float32 `json:"cpuFrequency"`
-	Network      string  `json:"network"`
-	Storage      string  `json:"storage"`
+	RamInGb           int32                      `json:"ramInGb"`
+	CPU               string                     `json:"cpu"`
+	CPUCount          int32                      `json:"cpuCount"`
+	CoresPerCPU       int32                      `json:"coresPerCpu"`
+	CPUFrequency      float32                    `json:"cpuFrequency"`
+	Network           string                     `json:"network"`
+	Storage           string                     `json:"storage"`
+	GPUConfigurations []GPUConfigurationMetadata `json:"gpuConfigurations,omitempty"`
 }
 
 //FromBytes performs conversion of http response to the representing struct
