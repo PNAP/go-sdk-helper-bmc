@@ -7,6 +7,7 @@ import (
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
 	"github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
 )
 
 // GetProductAvailabilityCommand represents command that retrieves product availabilities for the account.
@@ -17,7 +18,7 @@ type GetProductAvailabilityCommand struct {
 }
 
 // Execute retrieves product availabilities for the account.
-func (command *GetProductAvailabilityCommand) Execute() ([]dto.ProductAvailability, error) {
+func (command *GetProductAvailabilityCommand) Execute() ([]billingapiclient.ProductAvailability, error) {
 
 	productCategory := command.productAvailabilityQuery.ProductCategory
 	productCode := command.productAvailabilityQuery.ProductCode
@@ -50,15 +51,12 @@ func (command *GetProductAvailabilityCommand) Execute() ([]dto.ProductAvailabili
 		x1 = x1.MinQuantity(minQuantity)
 	}
 
-	_, httpResponse, err := x1.ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Execute()
+	productAvailabilities, httpResponse, err := x1.ShowOnlyMinQuantityAvailable(showOnlyMinQuantityAvailable).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		var productResponse = &dto.ProductAvailabilities{}
-		productResponse.FromBytes(httpResponse)
-		respList := *productResponse
-		return respList, nil
+		return productAvailabilities, nil
 	}
 	return nil, fmt.Errorf("GetProductAvailabilityCommand %s", errResolver.Error)
 

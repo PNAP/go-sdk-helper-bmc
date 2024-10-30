@@ -6,30 +6,29 @@ import (
 	"fmt"
 	"io"
 	"time"
-
-	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v3"
 )
 
 //Query represents query parameters used in various API calls
 type Query struct {
-	Force           bool                                  `json:"force"`
-	LocationString  string                                `json:"locationString"`
-	Location        locationapiclient.LocationEnum        `json:"location"`
-	ProductCategory locationapiclient.ProductCategoryEnum `json:"productCategory"`
-	Number          string                                `json:"number"`
-	Status          string                                `json:"status"`
-	SentOnFrom      time.Time                             `json:"sentOnFrom"`
-	SentOnTo        time.Time                             `json:"sentOnTo"`
-	Limit           int32                                 `json:"limit,omitempty"`
-	Offset          int32                                 `json:"offset"`
-	SortField       string                                `json:"sortField"`
-	SortDirection   string                                `json:"sortDirection"`
-	From            time.Time                             `json:"from"`
-	To              time.Time                             `json:"to"`
-	Order           string                                `json:"order"`
-	Username        string                                `json:"username"`
-	Verb            string                                `json:"verb"`
-	Uri             string                                `json:"uri"`
+	Force           bool      `json:"force"`
+	Location        string    `json:"location"`
+	ProductCode     string    `json:"productCode"`
+	ProductCategory string    `json:"productCategory"`
+	SKUCode         string    `json:"skucode"`
+	Number          string    `json:"number"`
+	Status          string    `json:"status"`
+	SentOnFrom      time.Time `json:"sentOnFrom"`
+	SentOnTo        time.Time `json:"sentOnTo"`
+	Limit           int32     `json:"limit,omitempty"`
+	Offset          int32     `json:"offset"`
+	SortField       string    `json:"sortField"`
+	SortDirection   string    `json:"sortDirection"`
+	From            time.Time `json:"from"`
+	To              time.Time `json:"to"`
+	Order           string    `json:"order"`
+	Username        string    `json:"username"`
+	Verb            string    `json:"verb"`
+	Uri             string    `json:"uri"`
 }
 
 //ToBytes performs conversion of struct to the io.Reader

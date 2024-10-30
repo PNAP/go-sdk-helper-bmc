@@ -6,21 +6,22 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
 )
 
 // GetProductsCommand represents command that retrieves products for the account.
 // Use NewGetProductsCommand to initialize command properly.
 type GetProductsCommand struct {
-	receiver     receiver.BMCSDK
-	productQuery dto.ProductQuery
+	receiver receiver.BMCSDK
+	query    *dto.Query
 }
 
 // Execute retrieves products for the account.
-func (command *GetProductsCommand) Execute() ([]dto.Product, error) {
-	productCode := command.productQuery.ProductCode
-	productCategory := command.productQuery.ProductCategory
-	skuCode := command.productQuery.SKUCode
-	location := command.productQuery.Location
+func (command *GetProductsCommand) Execute() ([]billingapiclient.ProductsGet200ResponseInner, error) {
+	productCode := command.query.ProductCode
+	productCategory := command.query.ProductCategory
+	skuCode := command.query.SKUCode
+	location := command.query.Location
 
 	x1 := command.receiver.BillingAPIClient.ProductsAPI.ProductsGet(context.Background())
 
@@ -37,22 +38,19 @@ func (command *GetProductsCommand) Execute() ([]dto.Product, error) {
 		x1 = x1.Location(location)
 	}
 
-	_, httpResponse, err := x1.Execute()
+	products, httpResponse, err := x1.Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
 	if errResolver.Error == nil {
-		var productResponse = &dto.Products{}
-		productResponse.FromBytes(httpResponse)
-		respList := *productResponse
-		return respList, nil
+		return products, nil
 	}
 	return nil, fmt.Errorf("GetProductsCommand %s", errResolver.Error)
 
 }
 
 //NewGetProductsCommand constructs new commmand of this type
-func NewGetProductsCommand(reciever receiver.BMCSDK, productQuery dto.ProductQuery) *GetProductsCommand {
+func NewGetProductsCommand(reciever receiver.BMCSDK, query *dto.Query) *GetProductsCommand {
 
-	return &GetProductsCommand{reciever, productQuery}
+	return &GetProductsCommand{reciever, query}
 }

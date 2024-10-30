@@ -25,7 +25,7 @@ func (command *GetBgpPeerGroupsCommand) Execute() ([]networkapiclient.BgpPeerGro
 
 	if command.query != nil {
 
-		location := command.query.LocationString
+		location := command.query.Location
 
 		bgpPeerGroups, httpResponse, err = command.receiver.NetworkAPIClient.BGPPeerGroupsAPI.BgpPeerGroupsGet(context.Background()).Location(location).Execute()
 	} else {

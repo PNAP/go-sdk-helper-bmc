@@ -19,8 +19,11 @@ type GetLocationsCommand struct {
 // Execute runs GetLocationsCommand
 func (command *GetLocationsCommand) Execute() ([]locationapiclient.Location, error) {
 
-	location := command.query.Location
-	productCategory := command.query.ProductCategory
+	loc := command.query.Location
+	location := locationapiclient.LocationEnum(loc)
+
+	prodCat := command.query.ProductCategory
+	productCategory := locationapiclient.ProductCategoryEnum(prodCat)
 
 	locations, httpResponse, err := command.receiver.LocationAPIClient.LocationsAPI.GetLocations(context.Background()).Location(location).ProductCategory(productCategory).Execute()
 
