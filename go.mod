@@ -11,7 +11,7 @@ require (
 	github.com/phoenixnap/go-sdk-bmc/billingapi/v3 v3.1.0
 	github.com/phoenixnap/go-sdk-bmc/bmcapi/v3 v3.2.0
 	github.com/phoenixnap/go-sdk-bmc/invoicingapi v1.0.3
-	github.com/phoenixnap/go-sdk-bmc/ipapi/v3 v3.0.3
+	github.com/phoenixnap/go-sdk-bmc/ipapi/v3 v3.0.0-20241004122715-af677505678f
 	github.com/phoenixnap/go-sdk-bmc/locationapi/v3 v3.0.1
 	github.com/phoenixnap/go-sdk-bmc/networkapi/v3 v3.1.0
 	github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v3 v3.0.1

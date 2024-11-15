@@ -166,8 +166,8 @@ github.com/phoenixnap/go-sdk-bmc/bmcapi/v3 v3.2.0 h1:UfRHm7HxOjLCc9QFq7h6DvxkmoV
 github.com/phoenixnap/go-sdk-bmc/bmcapi/v3 v3.2.0/go.mod h1:fhyQGIyJK+iX+y0BrndNTeJPJYeMdRryynyE632xB+k=
 github.com/phoenixnap/go-sdk-bmc/invoicingapi v1.0.3 h1:25U2Uz+7i6Pur/UmHaSSRdKWTNM0WEeUZe8+ni4U2lQ=
 github.com/phoenixnap/go-sdk-bmc/invoicingapi v1.0.3/go.mod h1:Bt9KsJ+XlexuaNKixwDifKCpYCJafP0Wb0G1I0i7YVA=
-github.com/phoenixnap/go-sdk-bmc/ipapi/v3 v3.0.3 h1:MGL83/rBuEzjwp0H6vYeBp+HlS6vfpmyirrrfDOcipU=
-github.com/phoenixnap/go-sdk-bmc/ipapi/v3 v3.0.3/go.mod h1:kF6ES7PO/GIA8J42KUy452xR8/eV10ZEDBsEucYJ+tQ=
+github.com/phoenixnap/go-sdk-bmc/ipapi/v3 v3.0.0-20241004122715-af677505678f h1:l7DufHmQxrJaYuJ+n4xNTBxexKABsPqQMXzRncmnQS0=
+github.com/phoenixnap/go-sdk-bmc/ipapi/v3 v3.0.0-20241004122715-af677505678f/go.mod h1:kF6ES7PO/GIA8J42KUy452xR8/eV10ZEDBsEucYJ+tQ=
 github.com/phoenixnap/go-sdk-bmc/locationapi/v3 v3.0.1 h1:POub/iwvI5g44HqghfaYk0p+tiz4ZIanh1VY4UG7bf8=
 github.com/phoenixnap/go-sdk-bmc/locationapi/v3 v3.0.1/go.mod h1:5LaVlNND+X4xCxvo3IXIx7MlXYiAhQQCu6l3FXJqoz8=
 github.com/phoenixnap/go-sdk-bmc/networkapi/v3 v3.1.0 h1:TaDCFlN36nQlOHJ5EUuwMVsFa7IkXBdFP1lYGRo84VA=
