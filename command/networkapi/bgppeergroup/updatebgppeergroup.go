@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v3"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v4"
 )
 
 // UpdateBgpPeerGroupCommand represents command that modifies a specific BGP Peer Group owned by account

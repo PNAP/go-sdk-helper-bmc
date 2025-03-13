@@ -17,7 +17,7 @@ import (
 	invoicingapiclient "github.com/phoenixnap/go-sdk-bmc/invoicingapi"
 	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v3"
 	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v3"
-	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v3"
+	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v4"
 	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v3"
 	paymentsapiclient "github.com/phoenixnap/go-sdk-bmc/paymentsapi"
 	rancherapiclient "github.com/phoenixnap/go-sdk-bmc/ranchersolutionapi/v3"
