@@ -8,8 +8,8 @@ require (
 	//github.com/golang-jwt/jwt/v4 v4.0.0
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/phoenixnap/go-sdk-bmc/auditapi/v3 v3.0.4
-	github.com/phoenixnap/go-sdk-bmc/billingapi/v3 v3.2.0
-	github.com/phoenixnap/go-sdk-bmc/bmcapi/v3 v3.3.0
+	github.com/phoenixnap/go-sdk-bmc/billingapi/v3 v3.0.0-20250711082556-d87e1c03d8bd
+	github.com/phoenixnap/go-sdk-bmc/bmcapi/v3 v3.0.0-20250711082556-d87e1c03d8bd
 	github.com/phoenixnap/go-sdk-bmc/invoicingapi v1.0.4
 	github.com/phoenixnap/go-sdk-bmc/ipapi/v3 v3.0.0-20250604122716-0e577bbca373
 	github.com/phoenixnap/go-sdk-bmc/locationapi/v3 v3.0.2

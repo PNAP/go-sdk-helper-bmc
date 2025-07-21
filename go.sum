@@ -160,10 +160,10 @@ github.com/pelletier/go-toml v1.2.0 h1:T5zMGML61Wp+FlcbWjRDT7yAxhJNAiPPLOFECq181
 github.com/pelletier/go-toml v1.2.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/phoenixnap/go-sdk-bmc/auditapi/v3 v3.0.4 h1:MXeXq5pyTPps4gW6vwIoiMgk3oWZXDrfrPLC47qaoDE=
 github.com/phoenixnap/go-sdk-bmc/auditapi/v3 v3.0.4/go.mod h1:8390KvXPZE8veGsPvzU4LrTC+v4nDSPX50svCOXp30s=
-github.com/phoenixnap/go-sdk-bmc/billingapi/v3 v3.2.0 h1:pJHGOY1bUAFKfrilFjgflD79yK2rimD5LUvXaclfvfQ=
-github.com/phoenixnap/go-sdk-bmc/billingapi/v3 v3.2.0/go.mod h1:X4qrJVyhvZevlHqMeFI9Ajs3DG27zU1I2p4RTPjixw8=
-github.com/phoenixnap/go-sdk-bmc/bmcapi/v3 v3.3.0 h1:J0NOHxXEkeCrWD+MFVGzceOk+0xZgOrSBh/RUGd9EZQ=
-github.com/phoenixnap/go-sdk-bmc/bmcapi/v3 v3.3.0/go.mod h1:fhyQGIyJK+iX+y0BrndNTeJPJYeMdRryynyE632xB+k=
+github.com/phoenixnap/go-sdk-bmc/billingapi/v3 v3.0.0-20250711082556-d87e1c03d8bd h1:BpcrbL4Z/A+U29BG+vu1D1YVV5I+U79naLj7bsUeCDs=
+github.com/phoenixnap/go-sdk-bmc/billingapi/v3 v3.0.0-20250711082556-d87e1c03d8bd/go.mod h1:X4qrJVyhvZevlHqMeFI9Ajs3DG27zU1I2p4RTPjixw8=
+github.com/phoenixnap/go-sdk-bmc/bmcapi/v3 v3.0.0-20250711082556-d87e1c03d8bd h1:IXP+G1a0/LGaSo70KKERye8OfBnwJMmG7MgpHncv/oc=
+github.com/phoenixnap/go-sdk-bmc/bmcapi/v3 v3.0.0-20250711082556-d87e1c03d8bd/go.mod h1:fhyQGIyJK+iX+y0BrndNTeJPJYeMdRryynyE632xB+k=
 github.com/phoenixnap/go-sdk-bmc/invoicingapi v1.0.4 h1:AzSdVpuwqrZ77IYO2NANr52WcpgSSciItnMeYUnv+IQ=
 github.com/phoenixnap/go-sdk-bmc/invoicingapi v1.0.4/go.mod h1:Bt9KsJ+XlexuaNKixwDifKCpYCJafP0Wb0G1I0i7YVA=
 github.com/phoenixnap/go-sdk-bmc/ipapi/v3 v3.0.0-20250604122716-0e577bbca373 h1:/7z3+rHBeRzpqi5oHcopH08sbBOGv2fEFHhlxMhgqrE=
