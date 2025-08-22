@@ -2,23 +2,20 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/PNAP/go-sdk-helper-bmc/command/bmcapi/server"
 	"github.com/PNAP/go-sdk-helper-bmc/command/networkapi/privatenetwork"
-	"github.com/PNAP/go-sdk-helper-bmc/receiver"
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
-	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi"
+	"github.com/PNAP/go-sdk-helper-bmc/receiver"
 )
 
-
-
-
-func main(){
+func main() {
 
 	configuration := dto.Configuration{}
 	configuration.UserAgent = "sdk-helper"
 	sdk, err := receiver.NewBMCSDKWithDefaultConfig(configuration)
 
-	if err!=nil{
+	if err != nil {
 		fmt.Println("Error is", err)
 	}
 	//cmd := bmcapi.NewGetServerCommand(sdk,"sdasdad")
@@ -33,30 +30,27 @@ func main(){
 
 	//cmd2 := bmcapi.NewGetServersCommand(sdk)
 
-	srv := bmcapiclient.ServerReserve{}
+	// srv := bmcapiclient.ServerReserve{}
 	//boolVar := true
-	srv.PricingModel = "bla bla"
-	cmd3 := server.NewDeleteServerCommand(sdk,"61a6a8d968496e7abc7e8497")
+	// srv.PricingModel = "bla bla"
+	cmd3 := server.NewDeleteServerCommand(sdk, "61a6a8d968496e7abc7e8497")
 
 	s, errr := cmd3.Execute()
-	
 
-	if errr!= nil{
+	if errr != nil {
 		fmt.Println("Error is", errr)
-	}else{
+	} else {
 		fmt.Println("Server is is", s.Result)
 	}
 
 	cmd4 := privatenetwork.NewGetPrivateNetworkCommand(sdk, "5fe997d274432c34c12adf8a")
 
 	s4, errr4 := cmd4.Execute()
-	
 
-	if errr4!= nil{
+	if errr4 != nil {
 		fmt.Println("Error is", errr4)
-	}else{
+	} else {
 		fmt.Println("Server is is", s4.Id)
 	}
-
 
 }
