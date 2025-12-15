@@ -24,9 +24,9 @@ func (command *GetProductAvailabilityCommand) Execute() ([]dto.ProductAvailabili
 	showOnlyMinQuantityAvailable := command.productAvailabilityQuery.ShowOnlyMinQuantityAvailable
 
 	loc := command.productAvailabilityQuery.Location
-	location := make([]billingapi.LocationEnum, len(loc))
+	location := make([]billingapi.ProductLocationEnum, len(loc))
 	for i, j := range loc {
-		location[i] = billingapi.LocationEnum(j)
+		location[i] = billingapi.ProductLocationEnum(j)
 	}
 
 	solution := command.productAvailabilityQuery.Solution
@@ -64,7 +64,7 @@ func (command *GetProductAvailabilityCommand) Execute() ([]dto.ProductAvailabili
 
 }
 
-//NewGetProductAvailabilityCommand constructs new commmand of this type
+// NewGetProductAvailabilityCommand constructs new commmand of this type
 func NewGetProductAvailabilityCommand(requester receiver.BMCSDK, productAvailabilityQuery dto.ProductAvailabilityQuery) *GetProductAvailabilityCommand {
 
 	return &GetProductAvailabilityCommand{requester, productAvailabilityQuery}
