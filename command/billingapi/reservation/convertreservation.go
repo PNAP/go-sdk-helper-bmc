@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v4"
 )
 
 // ConvertReservationCommand represents command that converts specified reservation for the account.
@@ -31,7 +31,7 @@ func (command *ConvertReservationCommand) Execute() (*billingapiclient.Reservati
 	return nil, fmt.Errorf("ConvertReservationCommand %s", errResolver.Error)
 }
 
-//NewConvertReservationCommand constructs new commmand of this type
+// NewConvertReservationCommand constructs new commmand of this type
 func NewConvertReservationCommand(receiver receiver.BMCSDK, reservationID string, reservationRequest billingapiclient.ReservationRequest) *ConvertReservationCommand {
 
 	return &ConvertReservationCommand{receiver, reservationID, reservationRequest}

@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v4"
 )
 
 // GetReservationsCommand represents command that retrieves all reservations for the account.
@@ -28,7 +28,7 @@ func (command *GetReservationsCommand) Execute() ([]billingapiclient.Reservation
 	return nil, fmt.Errorf("GetReservationsCommand %s", errResolver.Error)
 }
 
-//NewGetReservationsCommand constructs new commmand of this type
+// NewGetReservationsCommand constructs new commmand of this type
 func NewGetReservationsCommand(receiver receiver.BMCSDK) *GetReservationsCommand {
 
 	return &GetReservationsCommand{receiver}

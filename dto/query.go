@@ -7,7 +7,7 @@ import (
 	"io"
 	"time"
 
-	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v3"
+	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v4"
 )
 
 // Query represents query parameters used in various API calls
