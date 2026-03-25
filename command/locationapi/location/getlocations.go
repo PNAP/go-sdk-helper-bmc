@@ -7,7 +7,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v3"
+	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v4"
 )
 
 // GetLocationsCommand represents command that retrieves the locations info
@@ -32,7 +32,7 @@ func (command *GetLocationsCommand) Execute() ([]locationapiclient.Location, err
 	return nil, fmt.Errorf("GetLocationsCommand %s", errResolver.Error)
 }
 
-//NewGetLocationsCommand constructs new commmand of this type
+// NewGetLocationsCommand constructs new commmand of this type
 func NewGetLocationsCommand(receiver receiver.BMCSDK, query dto.Query) *GetLocationsCommand {
 
 	return &GetLocationsCommand{receiver, query}

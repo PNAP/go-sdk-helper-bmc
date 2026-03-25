@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v4"
 )
 
 // DisableAutoRenewReservationCommand represents command that disables auto-renewal for specific reservation.
@@ -31,7 +31,7 @@ func (command *DisableAutoRenewReservationCommand) Execute() (*billingapiclient.
 	return nil, fmt.Errorf("DisableAutoRenewReservationCommand %s", errResolver.Error)
 }
 
-//NewDisableAutoRenewReservationCommand constructs new commmand of this type
+// NewDisableAutoRenewReservationCommand constructs new commmand of this type
 func NewDisableAutoRenewReservationCommand(receiver receiver.BMCSDK, reservationID string, reason billingapiclient.ReservationAutoRenewDisableRequest) *DisableAutoRenewReservationCommand {
 
 	return &DisableAutoRenewReservationCommand{receiver, reservationID, reason}

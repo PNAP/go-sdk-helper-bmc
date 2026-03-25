@@ -7,14 +7,14 @@ import (
 	"io"
 	"time"
 
-	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v3"
+	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v4"
 )
 
-//Query represents query parameters used in various API calls
+// Query represents query parameters used in various API calls
 type Query struct {
 	Force           bool                                  `json:"force"`
 	LocationString  string                                `json:"locationString"`
-	Location        locationapiclient.LocationEnum        `json:"location"`
+	Location        locationapiclient.ProductLocationEnum `json:"location"`
 	ProductCategory locationapiclient.ProductCategoryEnum `json:"productCategory"`
 	Number          string                                `json:"number"`
 	Status          string                                `json:"status"`
@@ -32,7 +32,7 @@ type Query struct {
 	Uri             string                                `json:"uri"`
 }
 
-//ToBytes performs conversion of struct to the io.Reader
+// ToBytes performs conversion of struct to the io.Reader
 func (dto Query) ToBytes() (io.Reader, error) {
 	requestByte, err := json.Marshal(dto)
 

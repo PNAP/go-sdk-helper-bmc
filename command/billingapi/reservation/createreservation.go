@@ -6,7 +6,7 @@ import (
 
 	"github.com/PNAP/go-sdk-helper-bmc/dto"
 	"github.com/PNAP/go-sdk-helper-bmc/receiver"
-	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v4"
 )
 
 // CreateReservationCommand represents command that creates new package reservation for the account.
@@ -29,7 +29,7 @@ func (command *CreateReservationCommand) Execute() (*billingapiclient.Reservatio
 	return nil, fmt.Errorf("CreateReservationCommand %s", errResolver.Error)
 }
 
-//NewCreateReservationCommand constructs new commmand of this type
+// NewCreateReservationCommand constructs new commmand of this type
 func NewCreateReservationCommand(receiver receiver.BMCSDK, reservationRequest billingapiclient.ReservationRequest) *CreateReservationCommand {
 
 	return &CreateReservationCommand{receiver, reservationRequest}

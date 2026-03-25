@@ -12,11 +12,11 @@ import (
 
 	"github.com/mitchellh/go-homedir"
 	auditapiclient "github.com/phoenixnap/go-sdk-bmc/auditapi/v3"
-	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v3"
+	billingapiclient "github.com/phoenixnap/go-sdk-bmc/billingapi/v4"
 	bmcapiclient "github.com/phoenixnap/go-sdk-bmc/bmcapi/v3"
 	invoicingapiclient "github.com/phoenixnap/go-sdk-bmc/invoicingapi"
 	ipapiclient "github.com/phoenixnap/go-sdk-bmc/ipapi/v3"
-	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v3"
+	locationapiclient "github.com/phoenixnap/go-sdk-bmc/locationapi/v4"
 	networkapiclient "github.com/phoenixnap/go-sdk-bmc/networkapi/v4"
 	networkstorageapiclient "github.com/phoenixnap/go-sdk-bmc/networkstorageapi/v3"
 	paymentsapiclient "github.com/phoenixnap/go-sdk-bmc/paymentsapi"
@@ -41,8 +41,8 @@ type BMCSDK struct {
 	PNAPClient              PNAPClient
 }
 
-//NewBMCSDKWithDefaultConfig creates a new BMCSDK receiver with credentials from config file on default path. Verification of configuration file will be done prior to creation
-//and error will be returned in case credentials or whole configuration file is missing
+// NewBMCSDKWithDefaultConfig creates a new BMCSDK receiver with credentials from config file on default path. Verification of configuration file will be done prior to creation
+// and error will be returned in case credentials or whole configuration file is missing
 func NewBMCSDKWithDefaultConfig(auth dto.Configuration) (BMCSDK, error) {
 	// Find home directory
 	home, err := homedir.Dir()
@@ -428,8 +428,8 @@ func NewBMCSDKWithTokenAuthentication(auth dto.Configuration) BMCSDK {
 	return sdkClient
 }
 
-//NewBMCSDKWithCustomConfig creates a new BMCSDK receiver with credentials from configuration file on custom path. Verification of configuration file will be done prior to creation
-//and error will be returned in case credentials or whole configuration file is missing
+// NewBMCSDKWithCustomConfig creates a new BMCSDK receiver with credentials from configuration file on custom path. Verification of configuration file will be done prior to creation
+// and error will be returned in case credentials or whole configuration file is missing
 func NewBMCSDKWithCustomConfig(path string, auth dto.Configuration) (BMCSDK, error) {
 	err := Verify(path)
 	if err != nil {
@@ -525,7 +525,7 @@ func load(configPath string) clientcredentials.Config {
 	return config
 }
 
-//Verify verifies existence of configuration file and credentials
+// Verify verifies existence of configuration file and credentials
 func Verify(configPath string) error {
 
 	viper.AddConfigPath(configPath)
