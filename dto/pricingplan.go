@@ -9,8 +9,8 @@ import (
 
 // PricingPlan represents pricing plan details
 type PricingPlan struct {
-	SKU                   string               `json:"sku"`
-	SKUDescription        *string              `json:"skuDescription,omitempty"`
+	Sku                   string               `json:"sku"`
+	SkuDescription        *string              `json:"skuDescription,omitempty"`
 	Location              string               `json:"location"`
 	PricingModel          string               `json:"pricingModel"`
 	Price                 float32              `json:"price"`

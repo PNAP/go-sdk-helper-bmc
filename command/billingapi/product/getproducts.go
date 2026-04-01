@@ -19,7 +19,7 @@ type GetProductsCommand struct {
 func (command *GetProductsCommand) Execute() (dto.Products, error) {
 	productCode := command.productQuery.ProductCode
 	productCategory := command.productQuery.ProductCategory
-	skuCode := command.productQuery.SKUCode
+	skuCode := command.productQuery.SkuCode
 	location := command.productQuery.Location
 
 	x1 := command.receiver.BillingAPIClient.ProductsAPI.ProductsGet(context.Background())
