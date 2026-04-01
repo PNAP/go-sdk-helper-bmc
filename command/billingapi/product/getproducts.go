@@ -16,7 +16,7 @@ type GetProductsCommand struct {
 }
 
 // Execute retrieves products for the account.
-func (command *GetProductsCommand) Execute() ([]dto.Product, error) {
+func (command *GetProductsCommand) Execute() (dto.Products, error) {
 	productCode := command.productQuery.ProductCode
 	productCategory := command.productQuery.ProductCategory
 	skuCode := command.productQuery.SKUCode
@@ -51,7 +51,7 @@ func (command *GetProductsCommand) Execute() ([]dto.Product, error) {
 
 }
 
-//NewGetProductsCommand constructs new commmand of this type
+// NewGetProductsCommand constructs new commmand of this type
 func NewGetProductsCommand(reciever receiver.BMCSDK, productQuery dto.ProductQuery) *GetProductsCommand {
 
 	return &GetProductsCommand{reciever, productQuery}

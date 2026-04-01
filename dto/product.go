@@ -7,15 +7,15 @@ import (
 	"net/http"
 )
 
-//Product represents product details
+// Product represents product details
 type Product struct {
-	ProductCode     string                 `json:"productCode"`
-	ProductCategory string                 `json:"productCategory"`
-	Plans           []PricingPlan          `json:"plans,omitempty"`
-	Metadata        *ServerProductMetadata `json:"metadata,omitempty"`
+	ProductCode     string                `json:"productCode"`
+	ProductCategory string                `json:"productCategory"`
+	Plans           []PricingPlan         `json:"plans"`
+	Metadata        ServerProductMetadata `json:"metadata"`
 }
 
-//FromBytes performs conversion of http response to the representing struct
+// FromBytes performs conversion of http response to the representing struct
 func (dto *Product) FromBytes(resp *http.Response) error {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err == nil {
