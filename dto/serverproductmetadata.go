@@ -7,19 +7,19 @@ import (
 	"net/http"
 )
 
-//ServerProductMetadata represents details of the server product
+// ServerProductMetadata represents details of the server product
 type ServerProductMetadata struct {
-	RamInGb           int32                      `json:"ramInGb"`
-	CPU               string                     `json:"cpu"`
-	CPUCount          int32                      `json:"cpuCount"`
-	CoresPerCPU       int32                      `json:"coresPerCpu"`
-	CPUFrequency      float32                    `json:"cpuFrequency"`
+	RamInGb           float32                    `json:"ramInGb"`
+	Cpu               string                     `json:"cpu"`
+	CpuCount          float32                    `json:"cpuCount"`
+	CoresPerCpu       float32                    `json:"coresPerCpu"`
+	CpuFrequency      float32                    `json:"cpuFrequency"`
 	Network           string                     `json:"network"`
 	Storage           string                     `json:"storage"`
-	GPUConfigurations []GPUConfigurationMetadata `json:"gpuConfigurations,omitempty"`
+	GpuConfigurations []GpuConfigurationMetadata `json:"gpuConfigurations,omitempty"`
 }
 
-//FromBytes performs conversion of http response to the representing struct
+// FromBytes performs conversion of http response to the representing struct
 func (dto *ServerProductMetadata) FromBytes(resp *http.Response) error {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err == nil {
