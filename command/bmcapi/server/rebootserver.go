@@ -14,14 +14,15 @@ import (
 
 // RebootServerCommand represents command that reboots specific server
 type RebootServerCommand struct {
-	receiver receiver.BMCSDK
-	serverID string
+	receiver      receiver.BMCSDK
+	serverID      string
+	rebootRequest bmcapiclient.RebootRequest
 }
 
 // Execute reboots specific server
 func (command *RebootServerCommand) Execute() (*bmcapiclient.ActionResult, error) {
 
-	result, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdActionsRebootPost(context.Background(), command.serverID).Execute()
+	result, httpResponse, err := command.receiver.APIClient.ServersAPI.ServersServerIdActionsRebootPost(context.Background(), command.serverID).RebootRequest(command.rebootRequest).Execute()
 
 	errResolver := dto.NewErrorResolver(httpResponse, err)
 
@@ -31,8 +32,8 @@ func (command *RebootServerCommand) Execute() (*bmcapiclient.ActionResult, error
 	return nil, fmt.Errorf("RebootServerCommand %s", errResolver.Error)
 }
 
-//NewRebootServerCommand constructs new commmand of this type
-func NewRebootServerCommand(receiver receiver.BMCSDK, serverID string) *RebootServerCommand {
+// NewRebootServerCommand constructs new commmand of this type
+func NewRebootServerCommand(receiver receiver.BMCSDK, serverID string, rebootRequest bmcapiclient.RebootRequest) *RebootServerCommand {
 
-	return &RebootServerCommand{receiver, serverID}
+	return &RebootServerCommand{receiver, serverID, rebootRequest}
 }
